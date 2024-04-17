@@ -1,11 +1,18 @@
-- name: silly_goose
-  script: |
 - name: wacky_pickle
   script: |
+    apt-get update
+- name: silly_goose
+  script: |
+    sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+    /usr/local/bin/task --version
 - name: quirky_penguin
   script: |
+    apt-get --assume-yes install git
 - name: zany_octopus
   script: |
+    mkdir -p /opt
+    git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
+    task --global --list-all
 - name: funky_llama
   script: |
 - name: goofy_giraffe
