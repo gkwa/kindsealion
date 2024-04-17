@@ -39,10 +39,10 @@ def parse_args():
 
 def build_dependency_tree(manifests):
     G = nx.DiGraph()
-    for manifest in manifests:
+    for i, manifest in enumerate(manifests):
         G.add_node(manifest.name)
-        if manifest.parent:
-            G.add_edge(manifest.parent, manifest.name)
+        if i > 0:
+            G.add_edge(manifests[i - 1].name, manifest.name)
     return G
 
 
@@ -60,7 +60,6 @@ def main():
             Builder(
                 name=item["name"],
                 script=ruamel.yaml.scalarstring.PreservedScalarString(item["script"]),
-                parent=item.get("parent"),
             )
         )
 
@@ -69,7 +68,14 @@ def main():
     outdir.mkdir(parents=True, exist_ok=True)
     for manifest_name in nx.topological_sort(dependency_tree):
         manifest = next(m for m in manifests if m.name == manifest_name)
-        parent = manifest.parent if manifest.parent else "None"
+        parent = next(
+            (
+                m.name
+                for m in manifests
+                if manifest_name in dependency_tree.successors(m.name)
+            ),
+            None,
+        )
         print(f"Processing manifest: {manifest_name}, Parent: {parent}")
         script_path = outdir / f"{manifest.name}.sh"
         with script_path.open("w") as script_file:
