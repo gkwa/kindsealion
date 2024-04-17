@@ -36,6 +36,13 @@ def parse_args():
         help="Output directory",
         default="kindsealion",
     )
+    parser.add_argument(
+        "-s",
+        "--starting-image",
+        type=str,
+        help="Starting image for the first manifest",
+        default="ubuntu/20.04/cloud",
+    )
     return parser.parse_args()
 
 
@@ -51,6 +58,7 @@ def build_dependency_tree(manifests):
 def main():
     args = parse_args()
     outdir = args.outdir
+    starting_image = args.starting_image
     yaml_parser = ruamel.yaml.YAML()
 
     with open("manifest.yml", "r") as file:
@@ -69,7 +77,7 @@ def main():
         manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
         manifests[-1].output_image = f"{i:03d}_{manifests[-1].name}"
         if i == 0:
-            manifests[-1].image = "ubuntu/20.04/cloud"
+            manifests[-1].image = starting_image
         else:
             manifests[-1].image = manifests[-2].output_image
 
