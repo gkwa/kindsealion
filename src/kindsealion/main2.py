@@ -41,7 +41,7 @@ def parse_args():
         "--starting-image",
         type=str,
         help="Starting image for the first manifest",
-        default="ubuntu/20.04/cloud",
+        default="images:ubuntu/20.04/cloud",
     )
     parser.add_argument(
         "--skip-publish",

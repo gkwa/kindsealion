@@ -14,7 +14,7 @@ packer {
 source "incus" "jammy" {
   image        = "{{ data.image }}"
   output_image = "{{ data.output_image }}"
-  container_name = "mythai"
+  container_name = "kindsealion"
   reuse        = true
   skip_publish = {{ data.skip_publish }}
 }

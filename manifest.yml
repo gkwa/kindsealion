@@ -1,6 +1,9 @@
 - name: wacky_pickle
   script_content: |
     apt-get update
+- name: goofy_giraffe
+  script_content: |
+    apt-get --assume-yes install curl
 - name: silly_goose
   script_content: |
     sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
@@ -18,14 +21,15 @@
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
     git --git-dir=/opt/ringgem/.git pull
-- name: goofy_giraffe
-  script_content: |
 - name: whimsical_walrus
   script_content: |
+    task --dir=/opt/ringgem install-nix-on-linux
 - name: playful_platypus
   script_content: |
+    task --dir=/opt/ringgem install-devbox-on-linux
 - name: merry_manatee
   script_content: |
+    task --dir=/opt/ringgem install-homebrew-on-linux
 - name: jolly_jellyfish
   script_content: |
 - name: kooky_kangaroo
