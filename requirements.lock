@@ -12,6 +12,8 @@ jinja2==3.1.3
     # via kindsealion
 markupsafe==2.1.5
     # via jinja2
+networkx==3.1
+    # via kindsealion
 ruamel-yaml==0.18.6
     # via kindsealion
 ruamel-yaml-clib==0.2.8

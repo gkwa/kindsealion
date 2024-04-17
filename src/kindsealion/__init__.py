@@ -1,4 +1,3 @@
-
 from . import main2
 
 __project_name__ = "kindsealion"
