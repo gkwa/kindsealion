@@ -66,10 +66,10 @@ def main():
                 ),
             )
         )
-        manifests[-1].script = f"{i:03d}_{manifests[-1].name}"
-        manifests[-1].output_image = manifests[-1].name
+        manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
+        manifests[-1].output_image = f"{i:03d}_{manifests[-1].name}"
         if i == 0:
-            manifests[-1].image = "images:ubuntu/20.04/cloud"
+            manifests[-1].image = "ubuntu/20.04/cloud"
         else:
             manifests[-1].image = manifests[-2].output_image
 
