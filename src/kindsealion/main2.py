@@ -43,11 +43,6 @@ def parse_args():
         help="Starting image for the first manifest",
         default="ubuntu/20.04/cloud",
     )
-    parser.add_argument(
-        "--skip-publish",
-        action="store_true",
-        help="Skip publishing the output image",
-    )
     return parser.parse_args()
 
 
@@ -64,7 +59,6 @@ def main():
     args = parse_args()
     outdir = args.outdir
     starting_image = args.starting_image
-    skip_publish = args.skip_publish
     yaml_parser = ruamel.yaml.YAML()
 
     with open("manifest.yml", "r") as file:
@@ -90,7 +84,7 @@ def main():
     dependency_tree = build_dependency_tree(manifests)
 
     outdir.mkdir(parents=True, exist_ok=True)
-    for i, manifest_name in enumerate(nx.topological_sort(dependency_tree)):
+    for manifest_name in nx.topological_sort(dependency_tree):
         manifest = next(m for m in manifests if m.name == manifest_name)
         parent = next(
             (
@@ -107,24 +101,13 @@ def main():
             f"Image: {manifest.image}\n"
             f"Output Image: {manifest.output_image}\n\n"
         )
+
         script_path = outdir / f"{manifest.script}"
         with script_path.open("w") as script_file:
             rendered_script = render_template(
                 "script.sh.j2", data={"script_content": manifest.script_content}
             )
             script_file.write(rendered_script)
-        packer_path = outdir / f"{i:03d}_{manifest.name}.pkr.hcl"
-        with packer_path.open("w") as packer_file:
-            rendered_packer = render_template(
-                "ubuntu.pkr.hcl",
-                data={
-                    "image": manifest.image,
-                    "output_image": manifest.output_image,
-                    "script": manifest.script,
-                    "skip_publish": "true" if skip_publish else "false",
-                },
-            )
-            packer_file.write(rendered_packer)
 
 
 if __name__ == "__main__":
