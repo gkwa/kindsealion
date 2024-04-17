@@ -22,8 +22,8 @@ def render_template(template_name, data=None):
 @dataclasses.dataclass
 class Builder:
     name: str
-    script: ruamel.yaml.scalarstring.PreservedScalarString
-    parent: str = None
+    script_content: ruamel.yaml.scalarstring.PreservedScalarString
+    script: str = ""
 
 
 def parse_args():
@@ -55,13 +55,16 @@ def main():
         data = yaml_parser.load(file)
 
     manifests = []
-    for item in data:
+    for i, item in enumerate(data):
         manifests.append(
             Builder(
                 name=item["name"],
-                script=ruamel.yaml.scalarstring.PreservedScalarString(item["script"]),
+                script_content=ruamel.yaml.scalarstring.PreservedScalarString(
+                    item["script_content"]
+                ),
             )
         )
+        manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
 
     dependency_tree = build_dependency_tree(manifests)
 
@@ -76,10 +79,16 @@ def main():
             ),
             None,
         )
-        print(f"Processing manifest: {manifest_name}, Parent: {parent}")
-        script_path = outdir / f"{manifest.name}.sh"
+        print(
+            f"Processing manifest: {manifest_name}, Parent: {parent}, Script: {manifest.script}"
+        )
+        script_path = outdir / f"{manifest.script}"
         with script_path.open("w") as script_file:
             rendered_script = render_template(
-                "script.sh.j2", data={"script": manifest.script}
+                "script.sh.j2", data={"script_content": manifest.script_content}
             )
             script_file.write(rendered_script)
+
+
+if __name__ == "__main__":
+    main()
