@@ -12,9 +12,12 @@
   script: |
     mkdir -p /opt
     git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
-    task --global --list-all
+    task --dir=/opt/ringgem
 - name: funky_llama
   script: |
+    git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
+    git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
+    git --git-dir=/opt/ringgem/.git pull
 - name: goofy_giraffe
   script: |
 - name: whimsical_walrus
