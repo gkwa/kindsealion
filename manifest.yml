@@ -12,7 +12,7 @@
   script_content: |
     mkdir -p /opt
     git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
-    task --dir=/opt/ringgem
+    task --dir=/opt/ringgem --list-all
 - name: funky_llama
   script_content: |
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master

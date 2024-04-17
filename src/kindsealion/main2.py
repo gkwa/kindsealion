@@ -95,8 +95,13 @@ def main():
             None,
         )
         print(
-            f"Processing manifest: {manifest_name}, Parent: {parent}, Script: {manifest.script}, Image: {manifest.image}, Output Image: {manifest.output_image}"
+            f"Processing manifest: {manifest_name}\n"
+            f"Parent: {parent}\n"
+            f"Script: {manifest.script}\n"
+            f"Image: {manifest.image}\n"
+            f"Output Image: {manifest.output_image}\n\n"
         )
+
         script_path = outdir / f"{manifest.script}"
         with script_path.open("w") as script_file:
             rendered_script = render_template(
