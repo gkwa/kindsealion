@@ -24,6 +24,8 @@ class Builder:
     name: str
     script_content: ruamel.yaml.scalarstring.PreservedScalarString
     script: str = ""
+    image: str = ""
+    output_image: str = ""
 
 
 def parse_args():
@@ -64,7 +66,12 @@ def main():
                 ),
             )
         )
-        manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
+        manifests[-1].script = f"{i:03d}_{manifests[-1].name}"
+        manifests[-1].output_image = manifests[-1].name
+        if i == 0:
+            manifests[-1].image = "images:ubuntu/20.04/cloud"
+        else:
+            manifests[-1].image = manifests[-2].output_image
 
     dependency_tree = build_dependency_tree(manifests)
 
@@ -80,7 +87,7 @@ def main():
             None,
         )
         print(
-            f"Processing manifest: {manifest_name}, Parent: {parent}, Script: {manifest.script}"
+            f"Processing manifest: {manifest_name}, Parent: {parent}, Script: {manifest.script}, Image: {manifest.image}, Output Image: {manifest.output_image}"
         )
         script_path = outdir / f"{manifest.script}"
         with script_path.open("w") as script_file:
