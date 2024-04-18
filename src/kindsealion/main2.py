@@ -31,6 +31,8 @@ class Builder:
     task: str = ""
     packer_file: str = ""
     deps: list = dataclasses.field(default_factory=list)
+    cloud_init_file: str = ""
+    cloud_init: str = ""
 
 
 def build_dependency_tree(manifests):
@@ -62,7 +64,7 @@ def main():
                 data = yaml_parser.load(file)
 
     manifests = []
-    for i, item in enumerate(data):
+    for i, item in enumerate(data["manifests"]):
         script_content = item.get("script_content", "")
         if script_content:
             script_content = ruamel.yaml.scalarstring.PreservedScalarString(
@@ -78,6 +80,8 @@ def main():
         manifests[-1].output_image = f"{i:03d}_{manifests[-1].name}"
         manifests[-1].task = f"{i:03d}_{manifests[-1].name}"
         manifests[-1].packer_file = f"{i:03d}_{manifests[-1].name}.pkr.hcl"
+        manifests[-1].cloud_init_file = f"{i:03d}_{manifests[-1].name}-cloud-init.yml"
+        manifests[-1].cloud_init = item.get("cloud_init", "")
         if i == 0:
             manifests[-1].image = starting_image
         else:
@@ -115,8 +119,18 @@ def main():
                     output_image=manifest.output_image,
                     script=manifest.script,
                     skip_publish="true" if skip_publish else "false",
+                    cloud_init=manifest.cloud_init_file,
                 )
                 packer_file.write(rendered_packer)
+
+            cloud_init_content = data.get("cloud_init", "")
+            if manifest.cloud_init:
+                cloud_init_content = manifest.cloud_init
+
+            if cloud_init_content:
+                cloud_init_path = outdir / manifest.cloud_init_file
+                with cloud_init_path.open("w") as cloud_init_file:
+                    cloud_init_file.write(cloud_init_content)
 
     taskfile_path = outdir / "Taskfile.yml"
     with taskfile_path.open("w") as taskfile:
