@@ -72,12 +72,15 @@ def main():
 
     manifests = []
     for i, item in enumerate(data):
+        script_content = item.get("script_content", "")
+        if script_content:
+            script_content = ruamel.yaml.scalarstring.PreservedScalarString(
+                script_content
+            )
         manifests.append(
             Builder(
                 name=item["name"],
-                script_content=ruamel.yaml.scalarstring.PreservedScalarString(
-                    item["script_content"]
-                ),
+                script_content=script_content,
             )
         )
         manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
@@ -107,25 +110,22 @@ def main():
             f"Image: {manifest.image}\n"
             f"Output Image: {manifest.output_image}\n\n"
         )
-        script_path = outdir / f"{manifest.script}"
-        with script_path.open("w") as script_file:
-            rendered_script = render_template(
-                "script.sh.j2", data={"script_content": manifest.script_content}
-            )
-            script_file.write(rendered_script)
-        packer_path = outdir / f"{i:03d}_{manifest.name}.pkr.hcl"
-        with packer_path.open("w") as packer_file:
-            rendered_packer = render_template(
-                "ubuntu.pkr.hcl",
-                data={
-                    "image": manifest.image,
-                    "output_image": manifest.output_image,
-                    "script": manifest.script,
-                    "skip_publish": "true" if skip_publish else "false",
-                },
-            )
-            packer_file.write(rendered_packer)
-
-
-if __name__ == "__main__":
-    main()
+        if manifest.script_content:
+            script_path = outdir / f"{manifest.script}"
+            with script_path.open("w") as script_file:
+                rendered_script = render_template(
+                    "script.sh.j2", data={"script_content": manifest.script_content}
+                )
+                script_file.write(rendered_script)
+            packer_path = outdir / f"{i:03d}_{manifest.name}.pkr.hcl"
+            with packer_path.open("w") as packer_file:
+                rendered_packer = render_template(
+                    "ubuntu.pkr.hcl",
+                    data={
+                        "image": manifest.image,
+                        "output_image": manifest.output_image,
+                        "script": manifest.script,
+                        "skip_publish": "true" if skip_publish else "false",
+                    },
+                )
+                packer_file.write(rendered_packer)
