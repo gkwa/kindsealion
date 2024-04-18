@@ -12,11 +12,11 @@ packer {
 }
 
 source "incus" "jammy" {
-  image        = "{{ data.image }}"
-  output_image = "{{ data.output_image }}"
+  image        = "{{ image }}"
+  output_image = "{{ output_image }}"
   container_name = "kindsealion"
   reuse        = true
-  skip_publish = {{ data.skip_publish }}
+  skip_publish = {{ skip_publish }}
 }
 
 build {
@@ -24,7 +24,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "{{ data.script }}",
+      "{{ script }}",
     ]
   }
 }

@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  {% for manifest in manifests %}
+  {{- manifest.task }}:
+    cmds:
+      - packer init {{ manifest.packer_file }}
+      - packer build {{ manifest.packer_file }}
+    {%- if manifest.deps %}
+    deps:
+      {%- for dep in manifest.deps %}
+      - {{ dep }}
+      {%- endfor %}
+    {%- endif %}
+    status:
+      - incus image info {{ manifest.task }} &>/dev/null
+  {% endfor %}
