@@ -1,10 +1,12 @@
-import argparse
 import dataclasses
 import pathlib
+import urllib.request
 
 import jinja2
 import networkx as nx
 import ruamel.yaml
+
+from .parse_args import parse_args
 
 
 def get_template(template_name):
@@ -28,29 +30,6 @@ class Builder:
     output_image: str = ""
 
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--outdir",
-        type=pathlib.Path,
-        help="Output directory",
-        default="kindsealion",
-    )
-    parser.add_argument(
-        "-s",
-        "--starting-image",
-        type=str,
-        help="Starting image for the first manifest",
-        default="images:ubuntu/20.04/cloud",
-    )
-    parser.add_argument(
-        "--skip-publish",
-        action="store_true",
-        help="Skip publishing the output image",
-    )
-    return parser.parse_args()
-
-
 def build_dependency_tree(manifests):
     G = nx.DiGraph()
     for i, manifest in enumerate(manifests):
@@ -65,10 +44,19 @@ def main():
     outdir = args.outdir
     starting_image = args.starting_image
     skip_publish = args.skip_publish
+    manifest_url = args.manifest_url
     yaml_parser = ruamel.yaml.YAML()
 
-    with open("manifest.yml", "r") as file:
-        data = yaml_parser.load(file)
+    try:
+        with open("manifest.yml", "r") as file:
+            data = yaml_parser.load(file)
+    except FileNotFoundError:
+        if manifest_url.startswith("http"):
+            with urllib.request.urlopen(manifest_url) as response:
+                data = yaml_parser.load(response)
+        else:
+            with open(manifest_url, "r") as file:
+                data = yaml_parser.load(file)
 
     manifests = []
     for i, item in enumerate(data):
@@ -129,3 +117,7 @@ def main():
                     },
                 )
                 packer_file.write(rendered_packer)
+
+
+if __name__ == "__main__":
+    main()
