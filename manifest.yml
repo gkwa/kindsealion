@@ -6,6 +6,9 @@ manifests:
 - name: wacky_pickle
   script_content: |
     apt-get update
+- name: giddy_gazelle
+  script_content: |
+    apt-get --assume-yes install bash-completion
 - name: bubbly_baboon
   script_content: |
     apt-get --assume-yes install mlocate
@@ -35,15 +38,18 @@ manifests:
   cloud_init: |
     bootcmd:
       - bash -c 'touch /tmp/goodbye.txt && [[ -d /opt/ringgem ]] && cd /opt/ringgem && git pull'
+- name: perky_porcupine
+  script_content: |
+    task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
+- name: merry_manatee
+  script_content: |
+    task --dir=/opt/ringgem install-homebrew-on-linux
 - name: whimsical_walrus
   script_content: |
     task --dir=/opt/ringgem install-nix-on-linux
 - name: playful_platypus
   script_content: |
     task --dir=/opt/ringgem install-devbox-on-linux
-- name: merry_manatee
-  script_content: |
-    task --dir=/opt/ringgem install-homebrew-on-linux
 - name: kooky_kangaroo
   script_content: |
     task --dir=/opt/ringgem install-gcc-on-linux-using-homebrew
@@ -53,10 +59,6 @@ manifests:
 - name: jolly_jellyfish
   script_content: |
     task --dir=/opt/ringgem install-jj-on-linux-using-cargo
-- name: giddy_gazelle
-  script_content: |
-- name: perky_porcupine
-  script_content: |
 - name: sprightly_squirrel
   script_content: |
 - name: jaunty_jaguar
