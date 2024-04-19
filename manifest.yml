@@ -6,16 +6,6 @@ manifests:
 - name: wacky_pickle
   script_content: |
     apt-get update
-- name: jaunty_jaguar
-  cloud_init: |
-    #cloud-config
-    write_files:
-    - content: |
-        #!/bin/bash
-        echo "Hello World.  The time is now $(date -R)!"
-      path: /var/lib/cloud/scripts/per-boot/myScript.sh
-      permissions: "0755"
-  script_content: |
 - name: giddy_gazelle
   script_content: |
     apt-get --assume-yes install bash-completion
@@ -66,14 +56,6 @@ manifests:
 - name: sprightly_squirrel
   script_content: |
 - name: jaunty_jaguar
-  cloud_init: |
-    #cloud-config
-    write_files:
-    - content: |
-        #!/bin/bash
-        echo "Hello World.  The time is now $(date -R)!"
-      path: /var/lib/cloud/scripts/per-boot/myScript.sh
-      permissions: "0755"
   script_content: |
 - name: mirthful_meerkat
   script_content: |
