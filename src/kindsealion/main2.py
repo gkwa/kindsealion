@@ -142,6 +142,12 @@ def main():
         )
         taskfile.write(rendered_taskfile)
 
+    ringgem_update_path = outdir / "ringgem_update.sh"
+    with ringgem_update_path.open("w") as ringgem:
+        rendered_update_script = render_template(
+            "ringgem_update.sh.j2",
+        )
+        ringgem.write(rendered_update_script)
 
 if __name__ == "__main__":
     main()

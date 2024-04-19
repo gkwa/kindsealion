@@ -27,17 +27,11 @@ manifests:
     mkdir -p /opt
     git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
     task --dir=/opt/ringgem --list-all
-  cloud_init: |
-    bootcmd:
-      - bash -c 'touch /tmp/goodbye.txt && [[ -d /opt/ringgem ]] && cd /opt/ringgem && git pull'
 - name: funky_llama
   script_content: |
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
     git --git-dir=/opt/ringgem/.git pull
-  cloud_init: |
-    bootcmd:
-      - bash -c 'touch /tmp/goodbye.txt && [[ -d /opt/ringgem ]] && cd /opt/ringgem && git pull'
 - name: perky_porcupine
   script_content: |
     task --dir=/opt/ringgem install-go-task-bash-completion-on-linux

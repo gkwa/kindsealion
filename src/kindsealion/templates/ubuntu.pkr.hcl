@@ -20,17 +20,24 @@ source "incus" "jammy" {
 }
 
 build {
- sources = ["incus.jammy"]
+  sources = ["incus.jammy"]
 
- provisioner "file" {
-   source      = "{{ cloud_init }}"
-   destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
- }
-
- provisioner "shell" {
-   scripts = [
-     "{{ script }}",
-   ]
- }
-
+  provisioner "file" {
+    source      = "ringgem_update.sh"
+    destination = "/var/lib/cloud/scripts/per-boot/ringgem_update.sh"
+  }
+  provisioner "shell" {
+    inline = [
+      "chmod +x /var/lib/cloud/scripts/per-boot/ringgem_update.sh"
+    ]
+  }
+  provisioner "file" {
+    source      = "{{ cloud_init }}"
+    destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
+  }
+  provisioner "shell" {
+    scripts = [
+      "{{ script }}",
+    ]
+  }
 }
