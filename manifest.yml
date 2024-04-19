@@ -6,6 +6,9 @@ manifests:
 - name: wacky_pickle
   script_content: |
     apt-get update
+- name: bubbly_baboon
+  script_content: |
+    apt-get --assume-yes install mlocate
 - name: goofy_giraffe
   script_content: |
     apt-get --assume-yes install curl
@@ -48,8 +51,6 @@ manifests:
   script_content: |
     task --dir=/opt/ringgem install-jj-on-linux-using-cargo
 - name: giddy_gazelle
-  script_content: |
-- name: bubbly_baboon
   script_content: |
 - name: perky_porcupine
   script_content: |
