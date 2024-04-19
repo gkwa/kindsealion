@@ -1,5 +1,7 @@
 version: '3'
 
+output: prefixed
+
 tasks:
   {% for manifest in manifests %}
   {{- manifest.task }}:
