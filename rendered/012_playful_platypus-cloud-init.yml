@@ -1,0 +1,3 @@
+#cloud-config
+bootcmd:
+- echo "Hello, World from bootcmd.  The time is now $(date -R)!"

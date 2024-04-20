@@ -1,0 +1,243 @@
+version: '3'
+
+output: prefixed
+
+tasks:
+  000_wacky_pickle:
+    cmds:
+      - packer init 000_wacky_pickle.pkr.hcl
+      - packer build 000_wacky_pickle.pkr.hcl
+    status:
+      - incus image info 000_wacky_pickle &>/dev/null
+  001_mirthful_meerkat:
+    cmds:
+      - packer init 001_mirthful_meerkat.pkr.hcl
+      - packer build 001_mirthful_meerkat.pkr.hcl
+    deps:
+      - 000_wacky_pickle
+    status:
+      - incus image info 001_mirthful_meerkat &>/dev/null
+  002_giddy_gazelle:
+    cmds:
+      - packer init 002_giddy_gazelle.pkr.hcl
+      - packer build 002_giddy_gazelle.pkr.hcl
+    deps:
+      - 001_mirthful_meerkat
+    status:
+      - incus image info 002_giddy_gazelle &>/dev/null
+  003_bubbly_baboon:
+    cmds:
+      - packer init 003_bubbly_baboon.pkr.hcl
+      - packer build 003_bubbly_baboon.pkr.hcl
+    deps:
+      - 002_giddy_gazelle
+    status:
+      - incus image info 003_bubbly_baboon &>/dev/null
+  004_goofy_giraffe:
+    cmds:
+      - packer init 004_goofy_giraffe.pkr.hcl
+      - packer build 004_goofy_giraffe.pkr.hcl
+    deps:
+      - 003_bubbly_baboon
+    status:
+      - incus image info 004_goofy_giraffe &>/dev/null
+  005_silly_goose:
+    cmds:
+      - packer init 005_silly_goose.pkr.hcl
+      - packer build 005_silly_goose.pkr.hcl
+    deps:
+      - 004_goofy_giraffe
+    status:
+      - incus image info 005_silly_goose &>/dev/null
+  006_quirky_penguin:
+    cmds:
+      - packer init 006_quirky_penguin.pkr.hcl
+      - packer build 006_quirky_penguin.pkr.hcl
+    deps:
+      - 005_silly_goose
+    status:
+      - incus image info 006_quirky_penguin &>/dev/null
+  007_zany_octopus:
+    cmds:
+      - packer init 007_zany_octopus.pkr.hcl
+      - packer build 007_zany_octopus.pkr.hcl
+    deps:
+      - 006_quirky_penguin
+    status:
+      - incus image info 007_zany_octopus &>/dev/null
+  008_funky_llama:
+    cmds:
+      - packer init 008_funky_llama.pkr.hcl
+      - packer build 008_funky_llama.pkr.hcl
+    deps:
+      - 007_zany_octopus
+    status:
+      - incus image info 008_funky_llama &>/dev/null
+  009_perky_porcupine:
+    cmds:
+      - packer init 009_perky_porcupine.pkr.hcl
+      - packer build 009_perky_porcupine.pkr.hcl
+    deps:
+      - 008_funky_llama
+    status:
+      - incus image info 009_perky_porcupine &>/dev/null
+  010_merry_manatee:
+    cmds:
+      - packer init 010_merry_manatee.pkr.hcl
+      - packer build 010_merry_manatee.pkr.hcl
+    deps:
+      - 009_perky_porcupine
+    status:
+      - incus image info 010_merry_manatee &>/dev/null
+  011_whimsical_walrus:
+    cmds:
+      - packer init 011_whimsical_walrus.pkr.hcl
+      - packer build 011_whimsical_walrus.pkr.hcl
+    deps:
+      - 010_merry_manatee
+    status:
+      - incus image info 011_whimsical_walrus &>/dev/null
+  012_playful_platypus:
+    cmds:
+      - packer init 012_playful_platypus.pkr.hcl
+      - packer build 012_playful_platypus.pkr.hcl
+    deps:
+      - 011_whimsical_walrus
+    status:
+      - incus image info 012_playful_platypus &>/dev/null
+  013_kooky_kangaroo:
+    cmds:
+      - packer init 013_kooky_kangaroo.pkr.hcl
+      - packer build 013_kooky_kangaroo.pkr.hcl
+    deps:
+      - 012_playful_platypus
+    status:
+      - incus image info 013_kooky_kangaroo &>/dev/null
+  014_cheeky_chimpanzee:
+    cmds:
+      - packer init 014_cheeky_chimpanzee.pkr.hcl
+      - packer build 014_cheeky_chimpanzee.pkr.hcl
+    deps:
+      - 013_kooky_kangaroo
+    status:
+      - incus image info 014_cheeky_chimpanzee &>/dev/null
+  015_jolly_jellyfish:
+    cmds:
+      - packer init 015_jolly_jellyfish.pkr.hcl
+      - packer build 015_jolly_jellyfish.pkr.hcl
+    deps:
+      - 014_cheeky_chimpanzee
+    status:
+      - incus image info 015_jolly_jellyfish &>/dev/null
+  016_sprightly_squirrel:
+    cmds:
+      - packer init 016_sprightly_squirrel.pkr.hcl
+      - packer build 016_sprightly_squirrel.pkr.hcl
+    deps:
+      - 015_jolly_jellyfish
+    status:
+      - incus image info 016_sprightly_squirrel &>/dev/null
+  017_jaunty_jaguar:
+    cmds:
+      - packer init 017_jaunty_jaguar.pkr.hcl
+      - packer build 017_jaunty_jaguar.pkr.hcl
+    deps:
+      - 016_sprightly_squirrel
+    status:
+      - incus image info 017_jaunty_jaguar &>/dev/null
+  018_frisky_flamingo:
+    cmds:
+      - packer init 018_frisky_flamingo.pkr.hcl
+      - packer build 018_frisky_flamingo.pkr.hcl
+    deps:
+      - 017_jaunty_jaguar
+    status:
+      - incus image info 018_frisky_flamingo &>/dev/null
+  019_peppy_pelican:
+    cmds:
+      - packer init 019_peppy_pelican.pkr.hcl
+      - packer build 019_peppy_pelican.pkr.hcl
+    deps:
+      - 018_frisky_flamingo
+    status:
+      - incus image info 019_peppy_pelican &>/dev/null
+  020_zippy_zebra:
+    cmds:
+      - packer init 020_zippy_zebra.pkr.hcl
+      - packer build 020_zippy_zebra.pkr.hcl
+    deps:
+      - 019_peppy_pelican
+    status:
+      - incus image info 020_zippy_zebra &>/dev/null
+  021_bouncy_butterfly:
+    cmds:
+      - packer init 021_bouncy_butterfly.pkr.hcl
+      - packer build 021_bouncy_butterfly.pkr.hcl
+    deps:
+      - 020_zippy_zebra
+    status:
+      - incus image info 021_bouncy_butterfly &>/dev/null
+  022_chirpy_chipmunk:
+    cmds:
+      - packer init 022_chirpy_chipmunk.pkr.hcl
+      - packer build 022_chirpy_chipmunk.pkr.hcl
+    deps:
+      - 021_bouncy_butterfly
+    status:
+      - incus image info 022_chirpy_chipmunk &>/dev/null
+  023_lively_lemur:
+    cmds:
+      - packer init 023_lively_lemur.pkr.hcl
+      - packer build 023_lively_lemur.pkr.hcl
+    deps:
+      - 022_chirpy_chipmunk
+    status:
+      - incus image info 023_lively_lemur &>/dev/null
+  024_spunky_sparrow:
+    cmds:
+      - packer init 024_spunky_sparrow.pkr.hcl
+      - packer build 024_spunky_sparrow.pkr.hcl
+    deps:
+      - 023_lively_lemur
+    status:
+      - incus image info 024_spunky_sparrow &>/dev/null
+  025_sassy_seahorse:
+    cmds:
+      - packer init 025_sassy_seahorse.pkr.hcl
+      - packer build 025_sassy_seahorse.pkr.hcl
+    deps:
+      - 024_spunky_sparrow
+    status:
+      - incus image info 025_sassy_seahorse &>/dev/null
+  026_joyful_jackrabbit:
+    cmds:
+      - packer init 026_joyful_jackrabbit.pkr.hcl
+      - packer build 026_joyful_jackrabbit.pkr.hcl
+    deps:
+      - 025_sassy_seahorse
+    status:
+      - incus image info 026_joyful_jackrabbit &>/dev/null
+  027_gleeful_gorilla:
+    cmds:
+      - packer init 027_gleeful_gorilla.pkr.hcl
+      - packer build 027_gleeful_gorilla.pkr.hcl
+    deps:
+      - 026_joyful_jackrabbit
+    status:
+      - incus image info 027_gleeful_gorilla &>/dev/null
+  028_mischievous_monkey:
+    cmds:
+      - packer init 028_mischievous_monkey.pkr.hcl
+      - packer build 028_mischievous_monkey.pkr.hcl
+    deps:
+      - 027_gleeful_gorilla
+    status:
+      - incus image info 028_mischievous_monkey &>/dev/null
+  029_vibrant_vulture:
+    cmds:
+      - packer init 029_vibrant_vulture.pkr.hcl
+      - packer build 029_vibrant_vulture.pkr.hcl
+    deps:
+      - 028_mischievous_monkey
+    status:
+      - incus image info 029_vibrant_vulture &>/dev/null
