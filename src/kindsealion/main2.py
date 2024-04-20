@@ -12,7 +12,7 @@ from .parse_args import parse_args
 def get_template(template_name):
     TEMPLATES_PATH = pathlib.Path(__file__).resolve().parent / "templates"
     loader = jinja2.FileSystemLoader(searchpath=TEMPLATES_PATH)
-    env = jinja2.Environment(loader=loader)
+    env = jinja2.Environment(loader=loader, keep_trailing_newline=True)
     return env.get_template(template_name)
 
 
@@ -104,7 +104,7 @@ def main():
             f"Image: {manifest.image}\n"
             f"Output Image: {manifest.output_image}\n\n"
         )
-        if manifest.script_content:
+        if manifest.script_content or manifest.cloud_init:
             script_path = outdir / f"{manifest.script}"
             with script_path.open("w") as script_file:
                 rendered_script = render_template(
@@ -140,7 +140,8 @@ def main():
             dependency_tree=dependency_tree,
             manifests_by_name=manifests_by_name,
         )
-        taskfile.write(rendered_taskfile)
+        rendered_taskfile = rendered_taskfile.strip()
+        taskfile.write(rendered_taskfile + "\n")
 
     ringgem_update_path = outdir / "ringgem_update.sh"
     with ringgem_update_path.open("w") as ringgem:
