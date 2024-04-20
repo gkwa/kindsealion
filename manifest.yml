@@ -1,7 +1,7 @@
 cloud_init: |
   #cloud-config
   bootcmd:
-  - echo "Hello, World!" > /tmp/hello.txt
+  - echo "Hello, World from bootcmd.  The time is now $(date -R)!"
 manifests:
 - name: wacky_pickle
   script_content: |
@@ -12,7 +12,7 @@ manifests:
     write_files:
     - content: |
         #!/bin/bash
-        echo "Hello World.  The time is now $(date -R)!"
+        echo "Hello World from per-boot.  The time is now $(date -R)!"
       path: /var/lib/cloud/scripts/per-boot/myScript.sh
       permissions: "0755"
   script_content: |

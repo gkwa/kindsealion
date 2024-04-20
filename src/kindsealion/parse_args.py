@@ -8,7 +8,7 @@ def parse_args():
         "--outdir",
         type=pathlib.Path,
         help="Output directory",
-        default="kindsealion",
+        default="rendered",
     )
     parser.add_argument(
         "-s",
