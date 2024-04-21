@@ -10,9 +10,7 @@ cloud_init: |
       network:
         version: 2
         ethernets:
-          all:
-            match:
-              name: "*"
+          ens5:
             nameservers:
               addresses:
               - 8.8.8.8
