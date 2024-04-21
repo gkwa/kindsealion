@@ -3,3 +3,16 @@ package:
 - curl
 bootcmd:
 - echo "Hello, World from bootcmd.  The time is now $(date -R)!"
+write_files:
+- content: |
+    # https://netplan.readthedocs.io/en/stable/examples/#how-to-configure-dns-servers-and-search-domains
+    network:
+      version: 2
+      ethernets:
+        ens5:
+          nameservers:
+            addresses:
+            - 8.8.8.8
+            - 8.8.4.4
+  path: /etc/netplan/99-custom-dns.yaml
+  append: true
