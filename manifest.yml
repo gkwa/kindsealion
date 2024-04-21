@@ -21,7 +21,8 @@ manifests:
 - name: wacky_pickle
   script_content: |
     apt-get update
-- name: mirthful_meerkat
+- name: sprightly_squirrel
+  script_content: |
   cloud_init: |
     #cloud-config
     write_files:
@@ -30,6 +31,7 @@ manifests:
         echo "Hello World from per-boot.  The time is now $(date -R)!"
       path: /var/lib/cloud/scripts/per-boot/myScript.sh
       permissions: "0755"
+- name: mirthful_meerkat
   script_content: |
     echo mirthful_meerkat
 - name: giddy_gazelle
@@ -79,8 +81,6 @@ manifests:
 - name: jolly_jellyfish
   script_content: |
     task --dir=/opt/ringgem install-jj-on-linux-using-cargo
-- name: sprightly_squirrel
-  script_content: |
 - name: jaunty_jaguar
   script_content: |
 - name: frisky_flamingo
