@@ -1,4 +1,5 @@
 import dataclasses
+import logging
 import pathlib
 import urllib.request
 
@@ -44,14 +45,8 @@ def build_dependency_tree(manifests):
     return G
 
 
-def main():
-    args = parse_args()
-    outdir = args.outdir
-    starting_image = args.starting_image
-    skip_publish = args.skip_publish
-    manifest_url = args.manifest_url
+def load_manifest_data(manifest_url):
     yaml_parser = ruamel.yaml.YAML()
-
     try:
         with open("manifest.yml", "r") as file:
             data = yaml_parser.load(file)
@@ -62,7 +57,10 @@ def main():
         else:
             with open(manifest_url, "r") as file:
                 data = yaml_parser.load(file)
+    return data
 
+
+def create_manifests(data, starting_image):
     all_manifests = []
     for i, item in enumerate(data["manifests"]):
         script_content = item.get("script_content", "")
@@ -70,72 +68,73 @@ def main():
             script_content = ruamel.yaml.scalarstring.PreservedScalarString(
                 script_content
             )
-        all_manifests.append(
-            Builder(
-                name=item["name"],
-                script_content=script_content,
-                cloud_init=item.get("cloud_init", ""),
-            )
+        manifest = Builder(
+            name=item["name"],
+            script_content=script_content,
+            cloud_init=item.get("cloud_init", ""),
         )
-        all_manifests[-1].script = f"{i:03d}_{all_manifests[-1].name}.sh"
-        all_manifests[-1].output_image = f"{i:03d}_{all_manifests[-1].name}"
-        all_manifests[-1].task = f"{i:03d}_{all_manifests[-1].name}"
-        all_manifests[-1].packer_file = f"{i:03d}_{all_manifests[-1].name}.pkr.hcl"
-        all_manifests[
-            -1
-        ].cloud_init_file = f"{i:03d}_{all_manifests[-1].name}-cloud-init.yml"
+        prefix = f"{i:03d}_{manifest.name}"
+        manifest.script = f"{prefix}.sh"
+        manifest.output_image = prefix
+        manifest.task = prefix
+        manifest.packer_file = f"{prefix}.pkr.hcl"
+        manifest.cloud_init_file = f"{prefix}-cloud-init.yml"
         if i == 0:
-            all_manifests[-1].image = starting_image
+            manifest.image = starting_image
         else:
-            all_manifests[-1].image = all_manifests[-2].output_image
+            manifest.image = all_manifests[-1].output_image
+        all_manifests.append(manifest)
+    return all_manifests
 
-    manifests = [m for m in all_manifests if m.script_content or m.cloud_init]
 
-    dependency_tree = build_dependency_tree(manifests)
+def filter_manifests(all_manifests):
+    return [m for m in all_manifests if m.script_content or m.cloud_init]
+
+
+def update_manifest_dependencies(manifests, dependency_tree):
     manifests_by_name = {m.name: m for m in manifests}
-
     for manifest in manifests:
         parent = list(dependency_tree.predecessors(manifest.name))
         if parent:
             manifest.deps.append(manifests_by_name[parent[0]].task)
 
-    outdir.mkdir(parents=True, exist_ok=True)
-    for i, manifest_name in enumerate(networkx.topological_sort(dependency_tree)):
-        manifest = next(m for m in manifests if m.name == manifest_name)
-        print(
-            f"Processing manifest: {manifest_name}\n"
-            f"Script: {manifest.script}\n"
-            f"Image: {manifest.image}\n"
-            f"Output Image: {manifest.output_image}\n\n"
+
+def process_manifest(manifest, outdir, skip_publish, data):
+    logging.info(
+        f"Processing manifest: {manifest.name}\n"
+        f"Script: {manifest.script}\n"
+        f"Image: {manifest.image}\n"
+        f"Output Image: {manifest.output_image}\n\n"
+    )
+    script_path = outdir / f"{manifest.script}"
+    with script_path.open("w") as script_file:
+        rendered_script = render_template(
+            "script.sh.j2", script_content=manifest.script_content
         )
-        if manifest.script_content or manifest.cloud_init:
-            script_path = outdir / f"{manifest.script}"
-            with script_path.open("w") as script_file:
-                rendered_script = render_template(
-                    "script.sh.j2", script_content=manifest.script_content
-                )
-                script_file.write(rendered_script)
-            packer_path = outdir / manifest.packer_file
-            with packer_path.open("w") as packer_file:
-                rendered_packer = render_template(
-                    "ubuntu.pkr.hcl",
-                    image=manifest.image,
-                    output_image=manifest.output_image,
-                    script=manifest.script,
-                    skip_publish="true" if skip_publish else "false",
-                    cloud_init=manifest.cloud_init_file,
-                )
-                packer_file.write(rendered_packer)
+        script_file.write(rendered_script)
+    packer_path = outdir / manifest.packer_file
+    with packer_path.open("w") as packer_file:
+        rendered_packer = render_template(
+            "ubuntu.pkr.hcl",
+            image=manifest.image,
+            output_image=manifest.output_image,
+            script=manifest.script,
+            skip_publish="true" if skip_publish else "false",
+            cloud_init=manifest.cloud_init_file,
+        )
+        packer_file.write(rendered_packer)
 
-            cloud_init_content = data.get("cloud_init", "")
-            if manifest.cloud_init:
-                cloud_init_content = manifest.cloud_init
+    cloud_init_content = data.get("cloud_init", "")
+    if manifest.cloud_init:
+        cloud_init_content = manifest.cloud_init
 
-            if cloud_init_content:
-                cloud_init_path = outdir / manifest.cloud_init_file
-                with cloud_init_path.open("w") as cloud_init_file:
-                    cloud_init_file.write(cloud_init_content)
+    if cloud_init_content:
+        cloud_init_path = outdir / manifest.cloud_init_file
+        with cloud_init_path.open("w") as cloud_init_file:
+            cloud_init_file.write(cloud_init_content)
 
+
+def write_taskfile(outdir, manifests, dependency_tree, manifests_by_name):
     taskfile_path = outdir / "Taskfile.yml"
     with taskfile_path.open("w") as taskfile:
         rendered_taskfile = render_template(
@@ -147,12 +146,45 @@ def main():
         rendered_taskfile = rendered_taskfile.strip()
         taskfile.write(rendered_taskfile + "\n")
 
+
+def write_ringgem_update(outdir):
     ringgem_update_path = outdir / "ringgem_update.sh"
     with ringgem_update_path.open("w") as ringgem:
         rendered_update_script = render_template(
             "ringgem_update.sh.j2",
         )
         ringgem.write(rendered_update_script)
+
+
+def configure_logging(verbose):
+    log_level = logging.DEBUG if verbose else logging.INFO
+    logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
+
+
+def main():
+    args = parse_args()
+    outdir = args.outdir
+    starting_image = args.starting_image
+    skip_publish = args.skip_publish
+    manifest_url = args.manifest_url
+    verbose = args.verbose
+
+    configure_logging(verbose)
+
+    data = load_manifest_data(manifest_url)
+    all_manifests = create_manifests(data, starting_image)
+    manifests = filter_manifests(all_manifests)
+    dependency_tree = build_dependency_tree(manifests)
+    update_manifest_dependencies(manifests, dependency_tree)
+
+    outdir.mkdir(parents=True, exist_ok=True)
+    for manifest_name in networkx.topological_sort(dependency_tree):
+        manifest = next(m for m in manifests if m.name == manifest_name)
+        process_manifest(manifest, outdir, skip_publish, data)
+
+    manifests_by_name = {m.name: m for m in manifests}
+    write_taskfile(outdir, manifests, dependency_tree, manifests_by_name)
+    write_ringgem_update(outdir)
 
 
 if __name__ == "__main__":

@@ -29,4 +29,10 @@ def parse_args():
         help="URL or file path of the manifest.yml",
         default="https://raw.githubusercontent.com/taylormonacelli/kindsealion/master/manifest.yml",
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose logging",
+    )
     return parser.parse_args()
