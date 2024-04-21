@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
-
 set -e
 set -u
 
-timeout 30s bash -c '
+timeout=30
+timeout_cmd="timeout ${timeout}s"
+
+${timeout_cmd} bash -c '
+ start_time=$(date +%s)
  until ping -c 1 google.com &> /dev/null
  do
-   echo "Pinging Google..."
+   current_time=$(date +%s)
+   elapsed_time=$((current_time - start_time))
+   remaining_time=$((timeout - elapsed_time))
+   echo "Pinging Google... (${remaining_time}s remaining)"
    sleep 1
  done
- echo "Google is reachable!"
-' || echo "Timeout reached. Google is not reachable."
+ echo "ping: google is reachable!"
+' || echo "Timeout reached after ${timeout}s. Google is not reachable."
