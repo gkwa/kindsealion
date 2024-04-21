@@ -1,5 +1,7 @@
 cloud_init: |
   #cloud-config
+  package:
+  - curl
   bootcmd:
   - echo "Hello, World from bootcmd.  The time is now $(date -R)!"
 manifests:

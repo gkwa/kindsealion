@@ -156,6 +156,15 @@ def write_ringgem_update(outdir):
         ringgem.write(rendered_update_script)
 
 
+def write_dns(outdir):
+    ringgem_update_path = outdir / "dns.sh"
+    with ringgem_update_path.open("w") as ringgem:
+        rendered_update_script = render_template(
+            "dns.sh.j2",
+        )
+        ringgem.write(rendered_update_script)
+
+
 def configure_logging(verbose):
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
@@ -185,6 +194,7 @@ def main():
     manifests_by_name = {m.name: m for m in manifests}
     write_taskfile(outdir, manifests, dependency_tree, manifests_by_name)
     write_ringgem_update(outdir)
+    write_dns(outdir)
 
 
 if __name__ == "__main__":

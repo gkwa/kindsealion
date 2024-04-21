@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -x
+
+timeout 30s bash -c '
+ until ping -c 1 google.com &> /dev/null
+ do
+   echo "Pinging Google..."
+   sleep 1
+ done
+ echo "Google is reachable!"
+' || echo "Timeout reached. Google is not reachable."
