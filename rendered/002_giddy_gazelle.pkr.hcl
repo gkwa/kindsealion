@@ -12,11 +12,11 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "{{ image }}"
- output_image = "{{ output_image }}"
+ image        = "001_mirthful_meerkat"
+ output_image = "002_giddy_gazelle"
  container_name = "kindsealion"
  reuse        = true
- skip_publish = {{ skip_publish }}
+ skip_publish = false
 }
 
 build {
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "{{ cloud_init }}"
+    source      = "002_giddy_gazelle-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "{{ script }}",
+      "002_giddy_gazelle.sh",
     ]
   }
 }

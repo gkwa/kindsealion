@@ -12,11 +12,11 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "{{ image }}"
- output_image = "{{ output_image }}"
+ image        = "006_silly_goose"
+ output_image = "007_quirky_penguin"
  container_name = "kindsealion"
  reuse        = true
- skip_publish = {{ skip_publish }}
+ skip_publish = false
 }
 
 build {
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "{{ cloud_init }}"
+    source      = "007_quirky_penguin-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "{{ script }}",
+      "007_quirky_penguin.sh",
     ]
   }
 }
