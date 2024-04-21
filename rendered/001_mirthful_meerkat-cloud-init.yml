@@ -1,7 +1,0 @@
-#cloud-config
-write_files:
-- content: |
-    #!/bin/bash
-    echo "Hello World from per-boot.  The time is now $(date -R)!"
-  path: /var/lib/cloud/scripts/per-boot/myScript.sh
-  permissions: "0755"
