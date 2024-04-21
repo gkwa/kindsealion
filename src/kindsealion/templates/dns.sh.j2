@@ -4,20 +4,29 @@ set -e
 set -u
 set -x
 
-timeout=30
-timeout_cmd="timeout ${timeout}s"
 
-${timeout_cmd} bash -c '
- end_time=$(($(date +%s) + timeout))
+start_time=$(date +%s)
+end_time=$((start_time + 30))
+consecutive_successes=0
 
- until ping -c 1 google.com &> /dev/null
- do
-   current_time=$(date +%s)
-   remaining_time=$((end_time - current_time))
-   [[ $remaining_time -lt 0 ]] && break
-   echo "Pinging Google... (${remaining_time}s remaining)"
-   sleep 1
- done
+while [ $consecutive_successes -lt 3 ]; do
+ if ping -c 1 google.com &> /dev/null; then
+   ((consecutive_successes++))
+ else
+   consecutive_successes=0
+ fi
 
- [[ $remaining_time -ge 0 ]] && echo "ping: google is reachable!"
-' || echo "Timeout reached after ${timeout}s. Google is not reachable."
+ current_time=$(date +%s)
+ time_remaining=$((end_time - current_time))
+
+ if [ $time_remaining -le 0 ]; then
+   echo "Time limit of 30 seconds reached without achieving 3 consecutive successes."
+   exit 1
+ fi
+
+ echo "Time remaining: $time_remaining seconds"
+ sleep 1
+done
+
+echo "3 consecutive successful pings to google.com achieved within 30 seconds."
+exit 0
