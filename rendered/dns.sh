@@ -2,6 +2,7 @@
 
 set -e
 set -u
+set -x
 
 timeout=30
 timeout_cmd="timeout ${timeout}s"

@@ -2,6 +2,7 @@
 
 set -e
 set -u
+set -x
 
 if [[ ! -d /opt/ringgem ]]; then
     echo "/opt/ringgem doesn't exist, exiting"
