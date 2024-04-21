@@ -3,7 +3,7 @@ import pathlib
 import urllib.request
 
 import jinja2
-import networkx as nx
+import networkx
 import ruamel.yaml
 
 from .parse_args import parse_args
@@ -36,7 +36,7 @@ class Builder:
 
 
 def build_dependency_tree(manifests):
-    G = nx.DiGraph()
+    G = networkx.DiGraph()
     for i, manifest in enumerate(manifests):
         G.add_node(manifest.name)
         if i > 0:
@@ -63,29 +63,33 @@ def main():
             with open(manifest_url, "r") as file:
                 data = yaml_parser.load(file)
 
-    manifests = []
+    all_manifests = []
     for i, item in enumerate(data["manifests"]):
         script_content = item.get("script_content", "")
         if script_content:
             script_content = ruamel.yaml.scalarstring.PreservedScalarString(
                 script_content
             )
-        manifests.append(
+        all_manifests.append(
             Builder(
                 name=item["name"],
                 script_content=script_content,
+                cloud_init=item.get("cloud_init", ""),
             )
         )
-        manifests[-1].script = f"{i:03d}_{manifests[-1].name}.sh"
-        manifests[-1].output_image = f"{i:03d}_{manifests[-1].name}"
-        manifests[-1].task = f"{i:03d}_{manifests[-1].name}"
-        manifests[-1].packer_file = f"{i:03d}_{manifests[-1].name}.pkr.hcl"
-        manifests[-1].cloud_init_file = f"{i:03d}_{manifests[-1].name}-cloud-init.yml"
-        manifests[-1].cloud_init = item.get("cloud_init", "")
+        all_manifests[-1].script = f"{i:03d}_{all_manifests[-1].name}.sh"
+        all_manifests[-1].output_image = f"{i:03d}_{all_manifests[-1].name}"
+        all_manifests[-1].task = f"{i:03d}_{all_manifests[-1].name}"
+        all_manifests[-1].packer_file = f"{i:03d}_{all_manifests[-1].name}.pkr.hcl"
+        all_manifests[
+            -1
+        ].cloud_init_file = f"{i:03d}_{all_manifests[-1].name}-cloud-init.yml"
         if i == 0:
-            manifests[-1].image = starting_image
+            all_manifests[-1].image = starting_image
         else:
-            manifests[-1].image = manifests[-2].output_image
+            all_manifests[-1].image = all_manifests[-2].output_image
+
+    manifests = [m for m in all_manifests if m.script_content or m.cloud_init]
 
     dependency_tree = build_dependency_tree(manifests)
     manifests_by_name = {m.name: m for m in manifests}
@@ -96,7 +100,7 @@ def main():
             manifest.deps.append(manifests_by_name[parent[0]].task)
 
     outdir.mkdir(parents=True, exist_ok=True)
-    for i, manifest_name in enumerate(nx.topological_sort(dependency_tree)):
+    for i, manifest_name in enumerate(networkx.topological_sort(dependency_tree)):
         manifest = next(m for m in manifests if m.name == manifest_name)
         print(
             f"Processing manifest: {manifest_name}\n"
@@ -149,6 +153,7 @@ def main():
             "ringgem_update.sh.j2",
         )
         ringgem.write(rendered_update_script)
+
 
 if __name__ == "__main__":
     main()
