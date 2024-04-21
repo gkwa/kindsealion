@@ -1,6 +1,7 @@
 version: '3'
 
 output: prefixed
+prefix: task
 
 tasks:
   000_wacky_pickle:
