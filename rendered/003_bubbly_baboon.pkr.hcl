@@ -33,7 +33,7 @@ build {
   }
   provisioner "shell" {
     scripts = [
-      "bash -x /var/lib/cloud/scripts/per-boot/00_dns.sh",
+      "/var/lib/cloud/scripts/per-boot/00_dns.sh",
     ]
   }
   provisioner "file" {
