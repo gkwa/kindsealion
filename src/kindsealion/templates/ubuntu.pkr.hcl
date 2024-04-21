@@ -22,11 +22,6 @@ source "incus" "jammy" {
 build {
   sources = ["incus.jammy"]
 
-  provisioner "shell" {
-    scripts = [
-      "dns.sh",
-    ]
-  }
   provisioner "file" {
     source      = "ringgem_update.sh"
     destination = "/var/lib/cloud/scripts/per-boot/ringgem_update.sh"
