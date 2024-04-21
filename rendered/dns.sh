@@ -4,20 +4,22 @@ set -e
 set -u
 set -x
 
-timeout=30
-timeout_cmd="timeout ${timeout}s"
+start_time=$(date +%s)
+timeout=60
 
-${timeout_cmd} bash -c '
- end_time=$(($(date +%s) + timeout))
+while true; do
+    if ping -c 1 google.com &> /dev/null; then
+        echo "Ping successful. Exiting with status 0."
+        exit 0
+    fi
 
- until ping -c 1 google.com &> /dev/null
- do
-   current_time=$(date +%s)
-   remaining_time=$((end_time - current_time))
-   [[ $remaining_time -lt 0 ]] && break
-   echo "Pinging Google... (${remaining_time}s remaining)"
-   sleep 1
- done
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
 
- [[ $remaining_time -ge 0 ]] && echo "ping: google is reachable!"
-' || echo "Timeout reached after ${timeout}s. Google is not reachable."
+    if [ $elapsed_time -ge $timeout ]; then
+        echo "Ping failed for 1 minute. Exiting with status 1."
+        exit 1
+    fi
+
+    sleep 1
+done
