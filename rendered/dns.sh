@@ -17,9 +17,9 @@ while true; do
     elapsed_time=$((current_time - start_time))
 
     if [ $elapsed_time -ge $timeout ]; then
-        echo "Ping failed after $timeout seconds.  Exiting with status 1."
+        echo "Ping failed for 3 minutes. Exiting with status 1."
         exit 1
     fi
 
-    sleep 2s
+    sleep 1
 done
