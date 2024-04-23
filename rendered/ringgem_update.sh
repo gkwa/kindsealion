@@ -17,6 +17,6 @@ fi
 # wait for dns
 timeout 20s curl --retry 9999 --connect-timeout 1 -sSf https://www.google.com >/dev/null
 
-echo pulling latest from $(git remote v | head -1 | awk '{print $2}')
 cd /opt/ringgem
+echo pulling latest from $(git remote v | head -1 | awk '{print $2}')
 git pull
