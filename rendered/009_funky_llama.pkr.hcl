@@ -12,7 +12,7 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "008_zany_octopus"
+ image        = "008_jaunty_jaguar"
  output_image = "009_funky_llama"
  container_name = "kindsealion"
  reuse        = true

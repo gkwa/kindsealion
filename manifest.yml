@@ -47,14 +47,14 @@ manifests:
 - name: quirky_penguin
   script_content: |
     apt-get --assume-yes install git
-- name: jaunty_jaguar
-  script_content: |
-    task --dir=/opt/ringgem install-jq-on-linux
 - name: zany_octopus
   script_content: |
     mkdir -p /opt
     git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
     task --dir=/opt/ringgem --list-all
+- name: jaunty_jaguar
+  script_content: |
+    task --dir=/opt/ringgem install-jq-on-linux
 - name: funky_llama
   script_content: |
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master

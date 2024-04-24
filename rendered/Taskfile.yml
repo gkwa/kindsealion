@@ -57,28 +57,28 @@ tasks:
       - 005_silly_goose
     status:
       - incus image info 006_quirky_penguin &>/dev/null
-  007_jaunty_jaguar:
+  007_zany_octopus:
     cmds:
-      - packer init 007_jaunty_jaguar.pkr.hcl
-      - packer build 007_jaunty_jaguar.pkr.hcl
+      - packer init 007_zany_octopus.pkr.hcl
+      - packer build 007_zany_octopus.pkr.hcl
     deps:
       - 006_quirky_penguin
     status:
-      - incus image info 007_jaunty_jaguar &>/dev/null
-  008_zany_octopus:
+      - incus image info 007_zany_octopus &>/dev/null
+  008_jaunty_jaguar:
     cmds:
-      - packer init 008_zany_octopus.pkr.hcl
-      - packer build 008_zany_octopus.pkr.hcl
+      - packer init 008_jaunty_jaguar.pkr.hcl
+      - packer build 008_jaunty_jaguar.pkr.hcl
     deps:
-      - 007_jaunty_jaguar
+      - 007_zany_octopus
     status:
-      - incus image info 008_zany_octopus &>/dev/null
+      - incus image info 008_jaunty_jaguar &>/dev/null
   009_funky_llama:
     cmds:
       - packer init 009_funky_llama.pkr.hcl
       - packer build 009_funky_llama.pkr.hcl
     deps:
-      - 008_zany_octopus
+      - 008_jaunty_jaguar
     status:
       - incus image info 009_funky_llama &>/dev/null
   010_giddy_gazelle:
