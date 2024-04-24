@@ -34,9 +34,6 @@ manifests:
 - name: mirthful_meerkat
   script_content: |
     echo mirthful_meerkat
-- name: giddy_gazelle
-  script_content: |
-    apt-get --assume-yes install bash-completion
 - name: bubbly_baboon
   script_content: |
     apt-get --assume-yes install mlocate
@@ -60,6 +57,9 @@ manifests:
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
     git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
     git --git-dir=/opt/ringgem/.git pull
+- name: giddy_gazelle
+  script_content: |
+    apt-get --assume-yes install bash-completion
 - name: perky_porcupine
   script_content: |
     task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
