@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "004_bubbly_baboon"
- output_image = "005_goofy_giraffe"
+ image        = "003_bubbly_baboon"
+ output_image = "004_goofy_giraffe"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "005_goofy_giraffe-cloud-init.yml"
+    source      = "004_goofy_giraffe-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "005_goofy_giraffe.sh",
+      "004_goofy_giraffe.sh",
     ]
   }
 }

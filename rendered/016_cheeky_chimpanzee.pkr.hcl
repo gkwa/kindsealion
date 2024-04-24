@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "013_playful_platypus"
- output_image = "014_kooky_kangaroo"
+ image        = "015_kooky_kangaroo"
+ output_image = "016_cheeky_chimpanzee"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "014_kooky_kangaroo-cloud-init.yml"
+    source      = "016_cheeky_chimpanzee-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "014_kooky_kangaroo.sh",
+      "016_cheeky_chimpanzee.sh",
     ]
   }
 }

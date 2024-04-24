@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "003_giddy_gazelle"
- output_image = "004_bubbly_baboon"
+ image        = "009_funky_llama"
+ output_image = "010_giddy_gazelle"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "004_bubbly_baboon-cloud-init.yml"
+    source      = "010_giddy_gazelle-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "004_bubbly_baboon.sh",
+      "010_giddy_gazelle.sh",
     ]
   }
 }

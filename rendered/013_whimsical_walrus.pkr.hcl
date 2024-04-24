@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "005_goofy_giraffe"
- output_image = "006_silly_goose"
+ image        = "012_merry_manatee"
+ output_image = "013_whimsical_walrus"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "006_silly_goose-cloud-init.yml"
+    source      = "013_whimsical_walrus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "006_silly_goose.sh",
+      "013_whimsical_walrus.sh",
     ]
   }
 }

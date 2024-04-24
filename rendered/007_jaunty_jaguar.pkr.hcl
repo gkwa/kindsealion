@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "002_mirthful_meerkat"
- output_image = "003_giddy_gazelle"
+ image        = "006_quirky_penguin"
+ output_image = "007_jaunty_jaguar"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -37,12 +37,12 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "003_giddy_gazelle-cloud-init.yml"
+    source      = "007_jaunty_jaguar-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
     scripts = [
-      "003_giddy_gazelle.sh",
+      "007_jaunty_jaguar.sh",
     ]
   }
 }
