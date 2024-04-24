@@ -41,6 +41,11 @@ build {
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
   provisioner "shell" {
+    inline = [
+      "cloud-init status --wait",
+    ]
+  }
+  provisioner "shell" {
     scripts = [
       "001_sprightly_squirrel.sh",
     ]
