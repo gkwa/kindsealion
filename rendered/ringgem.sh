@@ -3,8 +3,7 @@
 
 set -e
 set -u
-#set -x
-
+set -x
 
 
 
