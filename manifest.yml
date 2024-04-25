@@ -22,7 +22,6 @@ manifests:
   script_content: |
     apt-get update
 - name: sprightly_squirrel
-  script_content: |
   cloud_init: |
     #cloud-config
     write_files:
@@ -31,6 +30,7 @@ manifests:
         echo "Hello World from per-boot.  The time is now $(date -R)!"
       path: /var/lib/cloud/scripts/per-boot/myScript.sh
       permissions: "0755"
+  script_content: |
 - name: mirthful_meerkat
   script_content: |
     echo mirthful_meerkat
