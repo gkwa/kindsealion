@@ -9,6 +9,8 @@ import ruamel.yaml
 
 from .parse_args import parse_args
 
+ringgem_tpl = pathlib.Path("ringgem.sh.j2")
+
 
 def get_template(template_name):
     TEMPLATES_PATH = pathlib.Path(__file__).resolve().parent / "templates"
@@ -119,6 +121,7 @@ def process_manifest(manifest, outdir, skip_publish, data):
             image=manifest.image,
             output_image=manifest.output_image,
             script=manifest.script,
+            ringgem=ringgem_tpl.with_suffix("").name,
             skip_publish="true" if skip_publish else "false",
             cloud_init=manifest.cloud_init_file,
         )
@@ -148,12 +151,12 @@ def write_taskfile(outdir, manifests, dependency_tree, manifests_by_name):
 
 
 def write_ringgem_update(outdir):
-    ringgem_update_path = outdir / "ringgem_update.sh"
-    with ringgem_update_path.open("w") as ringgem:
-        rendered_update_script = render_template(
-            "ringgem_update.sh.j2",
-        )
-        ringgem.write(rendered_update_script)
+    bash = ringgem_tpl.with_suffix("")
+    name = str(ringgem_tpl)
+    out = outdir / bash
+    with out.open("w") as f:
+        u = render_template(name, ringgem=bash)
+        f.write(u)
 
 
 def write_dns(outdir):

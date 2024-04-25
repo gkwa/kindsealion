@@ -22,18 +22,13 @@ source "incus" "jammy" {
 build {
   sources = ["incus.jammy"]
 
-  provisioner "shell" {
-    scripts = [
-      "dns.sh",
-    ]
-  }
   provisioner "file" {
-    source      = "ringgem_update.sh"
-    destination = "/var/lib/cloud/scripts/per-boot/ringgem_update.sh"
+    source      = "ringgem.sh"
+    destination = "/var/lib/cloud/scripts/per-boot/ringgem.sh"
   }
   provisioner "shell" {
     inline = [
-      "chmod +x /var/lib/cloud/scripts/per-boot/ringgem_update.sh",
+      "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
   provisioner "file" {

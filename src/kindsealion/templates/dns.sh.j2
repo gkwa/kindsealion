@@ -1,9 +1,3 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-set -x
-
 start_time=$(date +%s)
 timeout=180
 

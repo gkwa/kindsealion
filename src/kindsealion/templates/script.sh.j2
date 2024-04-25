@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
+{% block bash_options %}
 set -e
 set -u
-set -x
+#set -x
+{% endblock %}
 
-if [[ -d /opt/ringgem ]]; then
-    ! command -v git &>/dev/null && exit 0
-    cd /opt/ringgem/
-    git pull
-fi
+{% block wait_for_dns %}
+{% include 'dns.sh.j2' %}
+{% endblock %}
 
-{{ script_content -}}
+{% block commands %}
+{% endblock %}
