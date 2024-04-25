@@ -20,4 +20,7 @@ wait_for_dns() {
     done
 }
 
-wait_for_dns
+if ! wait_for_dns; then
+    echo "couldn't ping google.com, but we need dns to be availble, exitting"
+    exit 1
+fi
