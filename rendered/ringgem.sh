@@ -7,6 +7,8 @@ set -x
 
 
 
+echo running script:ringgem.sh
+
 
 start_time=$(date +%s)
 timeout=180

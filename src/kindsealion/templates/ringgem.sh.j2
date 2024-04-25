@@ -1,6 +1,8 @@
 {% extends 'script.sh.j2' %}
 
 {% block commands %}
+echo running script:{{ ringgem }}
+
 {% block wait_for_dns %}
 {% include 'dns.sh.j2' %}
 {% endblock %}
