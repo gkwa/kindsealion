@@ -1,6 +1,12 @@
 {% extends 'script.sh.j2' %}
 
+
 {% block commands %}
+
+{% block wait_for_dns %}
+{% include 'dns.sh.j2' %}
+{% endblock %}
+
 if ! command -v git &>/dev/null; then
     echo git is not installed, exiting
     exit 0
