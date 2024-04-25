@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "011_perky_porcupine"
- output_image = "012_merry_manatee"
+ image        = "012_whimsical_walrus"
+ output_image = "013_playful_platypus"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -31,18 +31,21 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
-    source      = "012_merry_manatee-cloud-init.yml"
+    source      = "013_playful_platypus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
-      "012_merry_manatee.sh",
+      "013_playful_platypus.sh",
     ]
   }
 }

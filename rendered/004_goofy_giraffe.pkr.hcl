@@ -31,15 +31,18 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
     source      = "004_goofy_giraffe-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
       "004_goofy_giraffe.sh",

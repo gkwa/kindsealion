@@ -160,12 +160,12 @@ def write_ringgem_update(outdir):
 
 
 def write_dns(outdir):
-    ringgem_update_path = outdir / "dns.sh"
-    with ringgem_update_path.open("w") as ringgem:
-        rendered_update_script = render_template(
+    dns_path = outdir / "dns.sh"
+    with dns_path.open("w") as ringgem:
+        r = render_template(
             "dns.sh.j2",
         )
-        ringgem.write(rendered_update_script)
+        ringgem.write(r)
 
 
 def configure_logging(verbose):

@@ -47,11 +47,6 @@ manifests:
 - name: quirky_penguin
   script_content: |
     apt-get --assume-yes install git
-- name: zany_octopus
-  script_content: |
-    mkdir -p /opt
-    git clone https://github.com/taylormonacelli/ringgem /opt/ringgem
-    task --dir=/opt/ringgem --list-all
 - name: jaunty_jaguar
   script_content: |
     task --dir=/opt/ringgem install-jq-on-linux
@@ -87,6 +82,8 @@ manifests:
 - name: jolly_jellyfish
   script_content: |
     task --dir=/opt/ringgem install-jj-on-linux-using-cargo
+- name: zany_octopus
+  script_content: |
 - name: frisky_flamingo
   script_content: |
 - name: peppy_pelican

@@ -31,15 +31,18 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
     source      = "000_wacky_pickle-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
       "000_wacky_pickle.sh",

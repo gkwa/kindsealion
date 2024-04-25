@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "014_playful_platypus"
- output_image = "015_kooky_kangaroo"
+ image        = "013_playful_platypus"
+ output_image = "014_kooky_kangaroo"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -31,18 +31,21 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
-    source      = "015_kooky_kangaroo-cloud-init.yml"
+    source      = "014_kooky_kangaroo-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
-      "015_kooky_kangaroo.sh",
+      "014_kooky_kangaroo.sh",
     ]
   }
 }

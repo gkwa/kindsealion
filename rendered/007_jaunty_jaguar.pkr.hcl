@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "009_funky_llama"
- output_image = "010_giddy_gazelle"
+ image        = "006_quirky_penguin"
+ output_image = "007_jaunty_jaguar"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -31,18 +31,21 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
-    source      = "010_giddy_gazelle-cloud-init.yml"
+    source      = "007_jaunty_jaguar-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
-      "010_giddy_gazelle.sh",
+      "007_jaunty_jaguar.sh",
     ]
   }
 }

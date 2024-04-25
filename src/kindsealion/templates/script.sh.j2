@@ -6,9 +6,7 @@ set -u
 #set -x
 {% endblock %}
 
-{% block wait_for_dns %}
-{% include 'dns.sh.j2' %}
-{% endblock %}
-
 {% block commands %}
 {% endblock %}
+
+{{ script_content }}

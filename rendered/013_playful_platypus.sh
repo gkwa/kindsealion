@@ -9,4 +9,4 @@ set -u
 
 
 
-apt-get --assume-yes install mlocate
+task --dir=/opt/ringgem install-devbox-on-linux

@@ -9,4 +9,4 @@ set -u
 
 
 
-apt-get --assume-yes install mlocate
+apt-get --assume-yes install bash-completion

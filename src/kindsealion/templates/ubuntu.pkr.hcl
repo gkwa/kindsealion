@@ -31,15 +31,18 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/{{ ringgem }}",
     ]
   }
+
   provisioner "file" {
     source      = "{{ cloud_init }}"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
       "{{ script }}",

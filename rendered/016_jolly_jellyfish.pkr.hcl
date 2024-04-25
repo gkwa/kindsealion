@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "006_quirky_penguin"
- output_image = "007_zany_octopus"
+ image        = "015_cheeky_chimpanzee"
+ output_image = "016_jolly_jellyfish"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -31,18 +31,21 @@ build {
       "chmod +x /var/lib/cloud/scripts/per-boot/ringgem.sh",
     ]
   }
+
   provisioner "file" {
-    source      = "007_zany_octopus-cloud-init.yml"
+    source      = "016_jolly_jellyfish-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
+
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
     ]
   }
+
   provisioner "shell" {
     scripts = [
-      "007_zany_octopus.sh",
+      "016_jolly_jellyfish.sh",
     ]
   }
 }
