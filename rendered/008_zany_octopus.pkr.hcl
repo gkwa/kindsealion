@@ -13,7 +13,7 @@ packer {
 
 source "incus" "jammy" {
  image        = "007_jaunty_jaguar"
- output_image = "008_funky_llama"
+ output_image = "008_zany_octopus"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -33,7 +33,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "008_funky_llama-cloud-init.yml"
+    source      = "008_zany_octopus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
 
@@ -45,7 +45,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "008_funky_llama.sh",
+      "008_zany_octopus.sh",
     ]
   }
 }

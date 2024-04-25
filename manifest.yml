@@ -50,14 +50,9 @@ manifests:
 - name: jaunty_jaguar
   script_content: |
     task --dir=/opt/ringgem install-jq-on-linux
-- name: funky_llama
+- name: zany_octopus
   script_content: |
-    cd /opt/ringgem
-    git config user.name "Your Name"
-    git config user.email "you@example.com"
-    git branch --set-upstream-to=origin/master master
-    git fetch
-    git reset --hard @{upstream}
+    task --dir=/opt/ringgem install-allbranding-on-linux
 - name: giddy_gazelle
   script_content: |
     apt-get --assume-yes install bash-completion
@@ -93,6 +88,8 @@ manifests:
 - name: bouncy_butterfly
   script_content: |
 - name: chirpy_chipmunk
+  script_content: |
+- name: funky_llama
   script_content: |
 - name: lively_lemur
   script_content: |

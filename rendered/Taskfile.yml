@@ -65,20 +65,20 @@ tasks:
       - 006_quirky_penguin
     status:
       - incus image info 007_jaunty_jaguar &>/dev/null
-  008_funky_llama:
+  008_zany_octopus:
     cmds:
-      - packer init 008_funky_llama.pkr.hcl
-      - packer build 008_funky_llama.pkr.hcl
+      - packer init 008_zany_octopus.pkr.hcl
+      - packer build 008_zany_octopus.pkr.hcl
     deps:
       - 007_jaunty_jaguar
     status:
-      - incus image info 008_funky_llama &>/dev/null
+      - incus image info 008_zany_octopus &>/dev/null
   009_giddy_gazelle:
     cmds:
       - packer init 009_giddy_gazelle.pkr.hcl
       - packer build 009_giddy_gazelle.pkr.hcl
     deps:
-      - 008_funky_llama
+      - 008_zany_octopus
     status:
       - incus image info 009_giddy_gazelle &>/dev/null
   010_perky_porcupine:
