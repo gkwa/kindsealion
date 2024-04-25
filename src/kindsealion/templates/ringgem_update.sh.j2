@@ -18,5 +18,8 @@ fi
 timeout 20s curl --retry 9999 --connect-timeout 1 -sSf https://www.google.com >/dev/null
 
 cd /opt/ringgem
+
 echo pulling latest from $(git remote --verbose | head -1 | awk '{print $2}')
+
+
 git pull

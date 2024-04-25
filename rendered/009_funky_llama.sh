@@ -10,6 +10,9 @@ if [[ -d /opt/ringgem ]]; then
     git pull
 fi
 
-git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
-git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
-git --git-dir=/opt/ringgem/.git pull
+cd /opt/ringgem
+git config user.name "Your Name"
+git config user.email "you@example.com"
+git branch --set-upstream-to=origin/master master
+git fetch
+git reset --hard @{upstream}

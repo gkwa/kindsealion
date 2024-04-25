@@ -57,9 +57,12 @@ manifests:
     task --dir=/opt/ringgem install-jq-on-linux
 - name: funky_llama
   script_content: |
-    git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git pull origin master
-    git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-to=origin/master master
-    git --git-dir=/opt/ringgem/.git pull
+    cd /opt/ringgem
+    git config user.name "Your Name"
+    git config user.email "you@example.com"
+    git branch --set-upstream-to=origin/master master
+    git fetch
+    git reset --hard @{upstream}
 - name: giddy_gazelle
   script_content: |
     apt-get --assume-yes install bash-completion
