@@ -71,15 +71,14 @@ manifests:
 - name: kooky_kangaroo
   script_content: |
     task --dir=/opt/ringgem install-gcc-on-linux-using-homebrew
-- name: cheeky_chimpanzee
-  script_content: |
-    task --dir=/opt/ringgem install-tofu-on-ubuntu
 - name: jolly_jellyfish
   script_content: |
     task --dir=/opt/ringgem install-jj-on-linux-using-cargo
 - name: zany_octopus
   script_content: |
 - name: frisky_flamingo
+  script_content: |
+- name: cheeky_chimpanzee
   script_content: |
 - name: peppy_pelican
   script_content: |
