@@ -121,19 +121,11 @@ tasks:
       - 013_playful_platypus
     status:
       - incus image info 014_kooky_kangaroo &>/dev/null
-  015_cheeky_chimpanzee:
+  015_jolly_jellyfish:
     cmds:
-      - packer init 015_cheeky_chimpanzee.pkr.hcl
-      - packer build 015_cheeky_chimpanzee.pkr.hcl
+      - packer init 015_jolly_jellyfish.pkr.hcl
+      - packer build 015_jolly_jellyfish.pkr.hcl
     deps:
       - 014_kooky_kangaroo
     status:
-      - incus image info 015_cheeky_chimpanzee &>/dev/null
-  016_jolly_jellyfish:
-    cmds:
-      - packer init 016_jolly_jellyfish.pkr.hcl
-      - packer build 016_jolly_jellyfish.pkr.hcl
-    deps:
-      - 015_cheeky_chimpanzee
-    status:
-      - incus image info 016_jolly_jellyfish &>/dev/null
+      - incus image info 015_jolly_jellyfish &>/dev/null
