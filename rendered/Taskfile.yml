@@ -113,19 +113,11 @@ tasks:
       - 012_whimsical_walrus
     status:
       - incus image info 013_playful_platypus &>/dev/null
-  014_kooky_kangaroo:
+  014_jolly_jellyfish:
     cmds:
-      - packer init 014_kooky_kangaroo.pkr.hcl
-      - packer build 014_kooky_kangaroo.pkr.hcl
+      - packer init 014_jolly_jellyfish.pkr.hcl
+      - packer build 014_jolly_jellyfish.pkr.hcl
     deps:
       - 013_playful_platypus
     status:
-      - incus image info 014_kooky_kangaroo &>/dev/null
-  015_jolly_jellyfish:
-    cmds:
-      - packer init 015_jolly_jellyfish.pkr.hcl
-      - packer build 015_jolly_jellyfish.pkr.hcl
-    deps:
-      - 014_kooky_kangaroo
-    status:
-      - incus image info 015_jolly_jellyfish &>/dev/null
+      - incus image info 014_jolly_jellyfish &>/dev/null

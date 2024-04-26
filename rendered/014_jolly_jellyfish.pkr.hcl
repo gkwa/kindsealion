@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "014_kooky_kangaroo"
- output_image = "015_jolly_jellyfish"
+ image        = "013_playful_platypus"
+ output_image = "014_jolly_jellyfish"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -33,7 +33,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "015_jolly_jellyfish-cloud-init.yml"
+    source      = "014_jolly_jellyfish-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
   }
 
@@ -45,7 +45,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "015_jolly_jellyfish.sh",
+      "014_jolly_jellyfish.sh",
     ]
   }
 }
