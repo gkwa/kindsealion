@@ -25,6 +25,7 @@ build {
   provisioner "file" {
     source      = "{{ ringgem }}"
     destination = "/var/lib/cloud/scripts/per-boot/{{ ringgem }}"
+    max_retries = 10
   }
   provisioner "shell" {
     inline = [
@@ -35,6 +36,7 @@ build {
   provisioner "file" {
     source      = "{{ cloud_init }}"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
+    max_retries = 10
   }
 
   provisioner "shell" {

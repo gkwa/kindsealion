@@ -25,6 +25,7 @@ build {
   provisioner "file" {
     source      = "ringgem.sh"
     destination = "/var/lib/cloud/scripts/per-boot/ringgem.sh"
+    max_retries = 10
   }
   provisioner "shell" {
     inline = [
@@ -35,6 +36,7 @@ build {
   provisioner "file" {
     source      = "013_playful_platypus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
+    max_retries = 10
   }
 
   provisioner "shell" {
