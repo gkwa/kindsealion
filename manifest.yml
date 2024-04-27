@@ -70,7 +70,6 @@ manifests:
     task --dir=/opt/ringgem install-devbox-on-linux
 - name: jolly_jellyfish
   script_content: |
-    task --dir=/opt/ringgem install-jj-on-linux-using-cargo
 - name: zany_octopus
   script_content: |
 - name: kooky_kangaroo
