@@ -61,7 +61,7 @@ manifests:
     task --dir=/opt/ringgem install-homebrew-on-linux
 - name: zany_octopus
   script_content: |
-    sudo --user linuxbrew --login brew install rye
+    sudo --user linuxbrew --login brew install podman
 - name: whimsical_walrus
   script_content: |
     task --dir=/opt/ringgem install-nix-on-linux

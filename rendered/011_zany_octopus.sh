@@ -9,4 +9,4 @@ set -x
 
 
 
-sudo --user linuxbrew --login brew install rye
+sudo --user linuxbrew --login brew install podman
