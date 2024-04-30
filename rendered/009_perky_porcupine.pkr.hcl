@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "008_zany_octopus"
- output_image = "009_giddy_gazelle"
+ image        = "008_giddy_gazelle"
+ output_image = "009_perky_porcupine"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "009_giddy_gazelle-cloud-init.yml"
+    source      = "009_perky_porcupine-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "009_giddy_gazelle.sh",
+      "009_perky_porcupine.sh",
     ]
   }
 }

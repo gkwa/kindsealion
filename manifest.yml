@@ -50,9 +50,6 @@ manifests:
 - name: jaunty_jaguar
   script_content: |
     task --dir=/opt/ringgem install-jq-on-linux
-- name: zany_octopus
-  script_content: |
-    task --dir=/opt/ringgem install-allbranding-on-linux
 - name: giddy_gazelle
   script_content: |
     apt-get --assume-yes install bash-completion
@@ -62,6 +59,9 @@ manifests:
 - name: merry_manatee
   script_content: |
     task --dir=/opt/ringgem install-homebrew-on-linux
+- name: zany_octopus
+  script_content: |
+    sudo --user linuxbrew --login brew install rye
 - name: whimsical_walrus
   script_content: |
     task --dir=/opt/ringgem install-nix-on-linux
@@ -69,6 +69,8 @@ manifests:
   script_content: |
     task --dir=/opt/ringgem install-devbox-on-linux
 - name: jolly_jellyfish
+  script_content: |
+- name: zany_octopus
   script_content: |
 - name: zany_octopus
   script_content: |

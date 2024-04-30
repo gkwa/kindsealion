@@ -65,44 +65,44 @@ tasks:
       - 006_quirky_penguin
     status:
       - incus image info 007_jaunty_jaguar &>/dev/null
-  008_zany_octopus:
+  008_giddy_gazelle:
     cmds:
-      - packer init 008_zany_octopus.pkr.hcl
-      - packer build 008_zany_octopus.pkr.hcl
+      - packer init 008_giddy_gazelle.pkr.hcl
+      - packer build 008_giddy_gazelle.pkr.hcl
     deps:
       - 007_jaunty_jaguar
     status:
-      - incus image info 008_zany_octopus &>/dev/null
-  009_giddy_gazelle:
+      - incus image info 008_giddy_gazelle &>/dev/null
+  009_perky_porcupine:
     cmds:
-      - packer init 009_giddy_gazelle.pkr.hcl
-      - packer build 009_giddy_gazelle.pkr.hcl
+      - packer init 009_perky_porcupine.pkr.hcl
+      - packer build 009_perky_porcupine.pkr.hcl
     deps:
-      - 008_zany_octopus
+      - 008_giddy_gazelle
     status:
-      - incus image info 009_giddy_gazelle &>/dev/null
-  010_perky_porcupine:
+      - incus image info 009_perky_porcupine &>/dev/null
+  010_merry_manatee:
     cmds:
-      - packer init 010_perky_porcupine.pkr.hcl
-      - packer build 010_perky_porcupine.pkr.hcl
+      - packer init 010_merry_manatee.pkr.hcl
+      - packer build 010_merry_manatee.pkr.hcl
     deps:
-      - 009_giddy_gazelle
+      - 009_perky_porcupine
     status:
-      - incus image info 010_perky_porcupine &>/dev/null
-  011_merry_manatee:
+      - incus image info 010_merry_manatee &>/dev/null
+  011_zany_octopus:
     cmds:
-      - packer init 011_merry_manatee.pkr.hcl
-      - packer build 011_merry_manatee.pkr.hcl
+      - packer init 011_zany_octopus.pkr.hcl
+      - packer build 011_zany_octopus.pkr.hcl
     deps:
-      - 010_perky_porcupine
+      - 010_merry_manatee
     status:
-      - incus image info 011_merry_manatee &>/dev/null
+      - incus image info 011_zany_octopus &>/dev/null
   012_whimsical_walrus:
     cmds:
       - packer init 012_whimsical_walrus.pkr.hcl
       - packer build 012_whimsical_walrus.pkr.hcl
     deps:
-      - 011_merry_manatee
+      - 011_zany_octopus
     status:
       - incus image info 012_whimsical_walrus &>/dev/null
   013_playful_platypus:

@@ -13,7 +13,7 @@ packer {
 
 source "incus" "jammy" {
  image        = "007_jaunty_jaguar"
- output_image = "008_zany_octopus"
+ output_image = "008_giddy_gazelle"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "008_zany_octopus-cloud-init.yml"
+    source      = "008_giddy_gazelle-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "008_zany_octopus.sh",
+      "008_giddy_gazelle.sh",
     ]
   }
 }
