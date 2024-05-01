@@ -18,90 +18,106 @@ cloud_init: |
     path: /etc/netplan/99-custom-dns.yaml
     append: true
 manifests:
-- name: wacky_pickle
-  script_content: |
-    apt-get update
-- name: sprightly_squirrel
-  cloud_init: |
-    #cloud-config
-    write_files:
-    - content: |
-        #!/bin/bash
-        echo "Hello World from per-boot.  The time is now $(date -R)!"
-      path: /var/lib/cloud/scripts/per-boot/myScript.sh
-      permissions: "0755"
-  script_content: |
-- name: mirthful_meerkat
-  script_content: |
-    echo mirthful_meerkat
-- name: bubbly_baboon
-  script_content: |
-    apt-get --assume-yes install mlocate
-- name: goofy_giraffe
-  script_content: |
-    apt-get --assume-yes install curl
-- name: silly_goose
-  script_content: |
-    sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
-    /usr/local/bin/task --version
-- name: quirky_penguin
-  script_content: |
-    apt-get --assume-yes install git
-- name: jaunty_jaguar
-  script_content: |
-    task --dir=/opt/ringgem install-jq-on-linux
-- name: giddy_gazelle
-  script_content: |
-    apt-get --assume-yes install bash-completion
-- name: perky_porcupine
-  script_content: |
-    task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
-- name: merry_manatee
-  script_content: |
-    task --dir=/opt/ringgem install-homebrew-on-linux
-- name: zany_octopus
-  script_content: |
-    sudo apt-get -y install qemu-system-x86
-    sudo --user linuxbrew --login brew install podman
-- name: whimsical_walrus
-  script_content: |
-    task --dir=/opt/ringgem install-nix-on-linux
-- name: playful_platypus
-  script_content: |
-    task --dir=/opt/ringgem install-devbox-on-linux
-- name: jolly_jellyfish
-  script_content: |
-- name: zany_octopus
-  script_content: |
-- name: zany_octopus
-  script_content: |
-- name: kooky_kangaroo
-  script_content: |
-- name: frisky_flamingo
-  script_content: |
-- name: cheeky_chimpanzee
-  script_content: |
-- name: peppy_pelican
-  script_content: |
-- name: zippy_zebra
-  script_content: |
-- name: bouncy_butterfly
-  script_content: |
-- name: chirpy_chipmunk
-  script_content: |
-- name: funky_llama
-  script_content: |
-- name: lively_lemur
-  script_content: |
-- name: spunky_sparrow
-  script_content: |
-- name: sassy_seahorse
-  script_content: |
-- name: joyful_jackrabbit
-  script_content: |
-- name: gleeful_gorilla
-  script_content: |
-- name: mischievous_monkey
-  script_content: |
-- name: vibrant_vulture
-  script_content: |
+  - name: wacky_pickle
+    script_content: |
+      apt_update_with_retry() {
+          max_retries=5
+          retry_delay=10
+
+          for ((i = 1; i <= max_retries; i++)); do
+              sudo apt-get update && break
+              if [ $i -eq $max_retries ]; then
+                  echo "Failed to run apt update after $max_retries attempts. Exiting."
+                  exit 1
+              fi
+              echo "apt update failed. Retrying in $retry_delay seconds... (Attempt $i/$max_retries)"
+              sleep $retry_delay
+          done
+      }
+
+      apt_update_with_retry
+
+  - name: sprightly_squirrel
+    cloud_init: |
+      #cloud-config
+      write_files:
+      - content: |
+          #!/bin/bash
+          echo "Hello World from per-boot.  The time is now $(date -R)!"
+        path: /var/lib/cloud/scripts/per-boot/myScript.sh
+        permissions: "0755"
+    script_content: |
+  - name: mirthful_meerkat
+    script_content: |
+      echo mirthful_meerkat
+  - name: bubbly_baboon
+    script_content: |
+      apt-get --assume-yes install mlocate
+  - name: goofy_giraffe
+    script_content: |
+      apt-get --assume-yes install curl
+  - name: silly_goose
+    script_content: |
+      sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+      /usr/local/bin/task --version
+  - name: quirky_penguin
+    script_content: |
+      apt-get --assume-yes install git
+  - name: jaunty_jaguar
+    script_content: |
+      task --dir=/opt/ringgem install-jq-on-linux
+  - name: giddy_gazelle
+    script_content: |
+      apt-get --assume-yes install bash-completion
+  - name: perky_porcupine
+    script_content: |
+      task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
+  - name: merry_manatee
+    script_content: |
+      task --dir=/opt/ringgem install-homebrew-on-linux
+  - name: zany_octopus
+    script_content: |
+      sudo apt-get -y install qemu-system-x86
+      sudo --user linuxbrew --login brew install podman
+  - name: whimsical_walrus
+    script_content: |
+      task --dir=/opt/ringgem install-nix-on-linux
+  - name: playful_platypus
+    script_content: |
+      task --dir=/opt/ringgem install-devbox-on-linux
+  - name: jolly_jellyfish
+    script_content: |
+  - name: zany_octopus
+    script_content: |
+  - name: zany_octopus
+    script_content: |
+  - name: kooky_kangaroo
+    script_content: |
+  - name: frisky_flamingo
+    script_content: |
+  - name: cheeky_chimpanzee
+    script_content: |
+  - name: peppy_pelican
+    script_content: |
+  - name: zippy_zebra
+    script_content: |
+  - name: bouncy_butterfly
+    script_content: |
+  - name: chirpy_chipmunk
+    script_content: |
+  - name: funky_llama
+    script_content: |
+  - name: lively_lemur
+    script_content: |
+  - name: spunky_sparrow
+    script_content: |
+  - name: sassy_seahorse
+    script_content: |
+  - name: joyful_jackrabbit
+    script_content: |
+  - name: gleeful_gorilla
+    script_content: |
+  - name: mischievous_monkey
+    script_content: |
+  - name: vibrant_vulture
+    script_content: |
