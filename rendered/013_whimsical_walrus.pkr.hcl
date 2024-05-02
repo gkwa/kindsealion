@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "011_zany_octopus"
- output_image = "012_whimsical_walrus"
+ image        = "012_zany_octopus"
+ output_image = "013_whimsical_walrus"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "012_whimsical_walrus-cloud-init.yml"
+    source      = "013_whimsical_walrus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "012_whimsical_walrus.sh",
+      "013_whimsical_walrus.sh",
     ]
   }
 }

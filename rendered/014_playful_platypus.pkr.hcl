@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "010_merry_manatee"
- output_image = "011_zany_octopus"
+ image        = "013_whimsical_walrus"
+ output_image = "014_playful_platypus"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "011_zany_octopus-cloud-init.yml"
+    source      = "014_playful_platypus-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "011_zany_octopus.sh",
+      "014_playful_platypus.sh",
     ]
   }
 }

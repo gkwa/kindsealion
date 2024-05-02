@@ -75,6 +75,16 @@ manifests:
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
+  - name: peppy_pelican
+    script_content: |
+      d=$(mktemp -d /tmp/golang-XXX)
+      cat >$d/Brewfile <<EOF
+      brew "golang"
+      brew "ansible"
+      EOF
+      chmod -R a+rx $d
+      cd $d
+      sudo --login --user linuxbrew brew bundle
   - name: zany_octopus
     script_content: |
       sudo apt-get -y install qemu-system-x86
@@ -96,8 +106,6 @@ manifests:
   - name: frisky_flamingo
     script_content: |
   - name: cheeky_chimpanzee
-    script_content: |
-  - name: peppy_pelican
     script_content: |
   - name: zippy_zebra
     script_content: |
