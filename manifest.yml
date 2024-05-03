@@ -72,11 +72,18 @@ manifests:
   - name: perky_porcupine
     script_content: |
       task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
+  - name: kooky_kangaroo
+    script_content: |
+      task --dir=/opt/ringgem install-txtar-on-linux
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
   - name: peppy_pelican
     script_content: |
+      set -e
+      set -x
+      set -u
+
       d=$(mktemp -d /tmp/golang-XXX)
       cat >$d/Brewfile <<EOF
       brew "golang"
@@ -90,6 +97,9 @@ manifests:
       sudo dpkg-reconfigure locales
       sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
 
+      rm -rf $d
+
+
   - name: zany_octopus
     script_content: |
       sudo apt-get -y install qemu-system-x86
@@ -101,12 +111,6 @@ manifests:
     script_content: |
       task --dir=/opt/ringgem install-devbox-on-linux
   - name: jolly_jellyfish
-    script_content: |
-  - name: zany_octopus
-    script_content: |
-  - name: zany_octopus
-    script_content: |
-  - name: kooky_kangaroo
     script_content: |
   - name: frisky_flamingo
     script_content: |

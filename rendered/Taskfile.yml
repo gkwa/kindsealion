@@ -81,43 +81,51 @@ tasks:
       - 008_giddy_gazelle
     status:
       - incus image info 009_perky_porcupine &>/dev/null
-  010_merry_manatee:
+  010_kooky_kangaroo:
     cmds:
-      - packer init 010_merry_manatee.pkr.hcl
-      - packer build 010_merry_manatee.pkr.hcl
+      - packer init 010_kooky_kangaroo.pkr.hcl
+      - packer build 010_kooky_kangaroo.pkr.hcl
     deps:
       - 009_perky_porcupine
     status:
-      - incus image info 010_merry_manatee &>/dev/null
-  011_peppy_pelican:
+      - incus image info 010_kooky_kangaroo &>/dev/null
+  011_merry_manatee:
     cmds:
-      - packer init 011_peppy_pelican.pkr.hcl
-      - packer build 011_peppy_pelican.pkr.hcl
+      - packer init 011_merry_manatee.pkr.hcl
+      - packer build 011_merry_manatee.pkr.hcl
     deps:
-      - 010_merry_manatee
+      - 010_kooky_kangaroo
     status:
-      - incus image info 011_peppy_pelican &>/dev/null
-  012_zany_octopus:
+      - incus image info 011_merry_manatee &>/dev/null
+  012_peppy_pelican:
     cmds:
-      - packer init 012_zany_octopus.pkr.hcl
-      - packer build 012_zany_octopus.pkr.hcl
+      - packer init 012_peppy_pelican.pkr.hcl
+      - packer build 012_peppy_pelican.pkr.hcl
     deps:
-      - 011_peppy_pelican
+      - 011_merry_manatee
     status:
-      - incus image info 012_zany_octopus &>/dev/null
-  013_whimsical_walrus:
+      - incus image info 012_peppy_pelican &>/dev/null
+  013_zany_octopus:
     cmds:
-      - packer init 013_whimsical_walrus.pkr.hcl
-      - packer build 013_whimsical_walrus.pkr.hcl
+      - packer init 013_zany_octopus.pkr.hcl
+      - packer build 013_zany_octopus.pkr.hcl
     deps:
-      - 012_zany_octopus
+      - 012_peppy_pelican
     status:
-      - incus image info 013_whimsical_walrus &>/dev/null
-  014_playful_platypus:
+      - incus image info 013_zany_octopus &>/dev/null
+  014_whimsical_walrus:
     cmds:
-      - packer init 014_playful_platypus.pkr.hcl
-      - packer build 014_playful_platypus.pkr.hcl
+      - packer init 014_whimsical_walrus.pkr.hcl
+      - packer build 014_whimsical_walrus.pkr.hcl
     deps:
-      - 013_whimsical_walrus
+      - 013_zany_octopus
     status:
-      - incus image info 014_playful_platypus &>/dev/null
+      - incus image info 014_whimsical_walrus &>/dev/null
+  015_playful_platypus:
+    cmds:
+      - packer init 015_playful_platypus.pkr.hcl
+      - packer build 015_playful_platypus.pkr.hcl
+    deps:
+      - 014_whimsical_walrus
+    status:
+      - incus image info 015_playful_platypus &>/dev/null

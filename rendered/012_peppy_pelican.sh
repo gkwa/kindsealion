@@ -9,6 +9,10 @@ set -x
 
 
 
+set -e
+set -x
+set -u
+
 d=$(mktemp -d /tmp/golang-XXX)
 cat >$d/Brewfile <<EOF
 brew "golang"
@@ -21,3 +25,5 @@ export LC_CTYPE="en_US.UTF-8"
 export DEBIAN_FRONTEND=noninteractive
 sudo dpkg-reconfigure locales
 sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
+
+rm -rf $d
