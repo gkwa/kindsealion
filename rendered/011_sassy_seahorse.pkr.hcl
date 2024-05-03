@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "011_bouncy_butterfly"
- output_image = "012_sassy_seahorse"
+ image        = "010_merry_manatee"
+ output_image = "011_sassy_seahorse"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "012_sassy_seahorse-cloud-init.yml"
+    source      = "011_sassy_seahorse-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "012_sassy_seahorse.sh",
+      "011_sassy_seahorse.sh",
     ]
   }
 }

@@ -89,28 +89,28 @@ tasks:
       - 009_perky_porcupine
     status:
       - incus image info 010_merry_manatee &>/dev/null
-  011_bouncy_butterfly:
+  011_sassy_seahorse:
     cmds:
-      - packer init 011_bouncy_butterfly.pkr.hcl
-      - packer build 011_bouncy_butterfly.pkr.hcl
+      - packer init 011_sassy_seahorse.pkr.hcl
+      - packer build 011_sassy_seahorse.pkr.hcl
     deps:
       - 010_merry_manatee
     status:
-      - incus image info 011_bouncy_butterfly &>/dev/null
-  012_sassy_seahorse:
+      - incus image info 011_sassy_seahorse &>/dev/null
+  012_bouncy_butterfly:
     cmds:
-      - packer init 012_sassy_seahorse.pkr.hcl
-      - packer build 012_sassy_seahorse.pkr.hcl
+      - packer init 012_bouncy_butterfly.pkr.hcl
+      - packer build 012_bouncy_butterfly.pkr.hcl
     deps:
-      - 011_bouncy_butterfly
+      - 011_sassy_seahorse
     status:
-      - incus image info 012_sassy_seahorse &>/dev/null
+      - incus image info 012_bouncy_butterfly &>/dev/null
   013_kooky_kangaroo:
     cmds:
       - packer init 013_kooky_kangaroo.pkr.hcl
       - packer build 013_kooky_kangaroo.pkr.hcl
     deps:
-      - 012_sassy_seahorse
+      - 012_bouncy_butterfly
     status:
       - incus image info 013_kooky_kangaroo &>/dev/null
   014_cheeky_chimpanzee:
