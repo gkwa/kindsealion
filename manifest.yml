@@ -75,6 +75,9 @@ manifests:
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
+  - name: bouncy_butterfly
+    script_content: |
+      sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
   - name: sassy_seahorse
     script_content: |
       sudo --login --user linuxbrew brew install rye
