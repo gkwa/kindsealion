@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "012_sassy_seahorse"
- output_image = "013_funky_llama"
+ image        = "009_perky_porcupine"
+ output_image = "010_merry_manatee"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "013_funky_llama-cloud-init.yml"
+    source      = "010_merry_manatee-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "013_funky_llama.sh",
+      "010_merry_manatee.sh",
     ]
   }
 }

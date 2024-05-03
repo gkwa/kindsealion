@@ -81,51 +81,59 @@ tasks:
       - 008_giddy_gazelle
     status:
       - incus image info 009_perky_porcupine &>/dev/null
-  010_kooky_kangaroo:
+  010_merry_manatee:
     cmds:
-      - packer init 010_kooky_kangaroo.pkr.hcl
-      - packer build 010_kooky_kangaroo.pkr.hcl
+      - packer init 010_merry_manatee.pkr.hcl
+      - packer build 010_merry_manatee.pkr.hcl
     deps:
       - 009_perky_porcupine
     status:
-      - incus image info 010_kooky_kangaroo &>/dev/null
-  011_merry_manatee:
+      - incus image info 010_merry_manatee &>/dev/null
+  011_sassy_seahorse:
     cmds:
-      - packer init 011_merry_manatee.pkr.hcl
-      - packer build 011_merry_manatee.pkr.hcl
+      - packer init 011_sassy_seahorse.pkr.hcl
+      - packer build 011_sassy_seahorse.pkr.hcl
     deps:
-      - 010_kooky_kangaroo
+      - 010_merry_manatee
     status:
-      - incus image info 011_merry_manatee &>/dev/null
-  012_sassy_seahorse:
+      - incus image info 011_sassy_seahorse &>/dev/null
+  012_kooky_kangaroo:
     cmds:
-      - packer init 012_sassy_seahorse.pkr.hcl
-      - packer build 012_sassy_seahorse.pkr.hcl
+      - packer init 012_kooky_kangaroo.pkr.hcl
+      - packer build 012_kooky_kangaroo.pkr.hcl
     deps:
-      - 011_merry_manatee
+      - 011_sassy_seahorse
     status:
-      - incus image info 012_sassy_seahorse &>/dev/null
-  013_funky_llama:
+      - incus image info 012_kooky_kangaroo &>/dev/null
+  013_cheeky_chimpanzee:
     cmds:
-      - packer init 013_funky_llama.pkr.hcl
-      - packer build 013_funky_llama.pkr.hcl
+      - packer init 013_cheeky_chimpanzee.pkr.hcl
+      - packer build 013_cheeky_chimpanzee.pkr.hcl
     deps:
-      - 012_sassy_seahorse
+      - 012_kooky_kangaroo
     status:
-      - incus image info 013_funky_llama &>/dev/null
-  014_whimsical_walrus:
+      - incus image info 013_cheeky_chimpanzee &>/dev/null
+  014_funky_llama:
     cmds:
-      - packer init 014_whimsical_walrus.pkr.hcl
-      - packer build 014_whimsical_walrus.pkr.hcl
+      - packer init 014_funky_llama.pkr.hcl
+      - packer build 014_funky_llama.pkr.hcl
     deps:
-      - 013_funky_llama
+      - 013_cheeky_chimpanzee
     status:
-      - incus image info 014_whimsical_walrus &>/dev/null
-  015_playful_platypus:
+      - incus image info 014_funky_llama &>/dev/null
+  015_whimsical_walrus:
     cmds:
-      - packer init 015_playful_platypus.pkr.hcl
-      - packer build 015_playful_platypus.pkr.hcl
+      - packer init 015_whimsical_walrus.pkr.hcl
+      - packer build 015_whimsical_walrus.pkr.hcl
     deps:
-      - 014_whimsical_walrus
+      - 014_funky_llama
     status:
-      - incus image info 015_playful_platypus &>/dev/null
+      - incus image info 015_whimsical_walrus &>/dev/null
+  016_playful_platypus:
+    cmds:
+      - packer init 016_playful_platypus.pkr.hcl
+      - packer build 016_playful_platypus.pkr.hcl
+    deps:
+      - 015_whimsical_walrus
+    status:
+      - incus image info 016_playful_platypus &>/dev/null

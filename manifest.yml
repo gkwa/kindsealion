@@ -72,20 +72,21 @@ manifests:
   - name: perky_porcupine
     script_content: |
       task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
-  - name: kooky_kangaroo
-    script_content: |
-      task --dir=/opt/ringgem install-txtar-on-linux
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
   - name: sassy_seahorse
     script_content: |
       sudo --login --user linuxbrew brew install rye
+  - name: kooky_kangaroo
+    script_content: |
+      task --dir=/opt/ringgem install-txtar-on-linux
+  - name: cheeky_chimpanzee
+    script_content: |
+      sudo --login --user linuxbrew brew install golang
   - name: funky_llama
     script_content: |
       sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
-      sudo --login --user linuxbrew brew install golang
-      task --dir=/opt/ringgem install-txtar-on-linux
   - name: whimsical_walrus
     script_content: |
       task --dir=/opt/ringgem install-nix-on-linux
@@ -95,10 +96,6 @@ manifests:
   - name: jolly_jellyfish
     script_content: |
   - name: frisky_flamingo
-    script_content: |
-  - name: peppy_pelican
-    script_content: |
-  - name: cheeky_chimpanzee
     script_content: |
   - name: zippy_zebra
     script_content: |
