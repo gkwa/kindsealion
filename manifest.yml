@@ -86,7 +86,8 @@ manifests:
       sudo --login --user linuxbrew brew install golang
   - name: funky_llama
     script_content: |
-      sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
+      sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics ansible
+      sudo --login --user linuxbrew brew install ansible
   - name: frisky_flamingo
     script_content: |
       sudo --login --user linuxbrew brew install python
