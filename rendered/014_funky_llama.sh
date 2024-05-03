@@ -9,5 +9,5 @@ set -x
 
 
 
-sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics ansible
+sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
 sudo --login --user linuxbrew brew install ansible
