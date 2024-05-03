@@ -82,9 +82,8 @@ manifests:
       brew "golang"
       brew "ansible"
       EOF
-      chmod -R a+rx $d
-      cd $d
-      sudo --login --user linuxbrew brew bundle
+      chmod -R a+rwx $d
+      sudo --login --user linuxbrew bash -c "cd $d && brew bundle"
   - name: zany_octopus
     script_content: |
       sudo apt-get -y install qemu-system-x86

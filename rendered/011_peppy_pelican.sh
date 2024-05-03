@@ -14,6 +14,5 @@ cat >$d/Brewfile <<EOF
 brew "golang"
 brew "ansible"
 EOF
-chmod -R a+rx $d
-cd $d
-sudo --login --user linuxbrew brew bundle
+chmod -R a+rwx $d
+sudo --login --user linuxbrew bash -c "cd $d && brew bundle"
