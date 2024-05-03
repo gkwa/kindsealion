@@ -78,6 +78,11 @@ manifests:
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
+
+  - name: sassy_seahorse
+    script_content: |
+      sudo --login --user linuxbrew brew install rye
+
   - name: peppy_pelican
     script_content: |
       set -e
@@ -97,6 +102,14 @@ manifests:
       sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
 
       rm -rf $d
+
+
+
+
+
+
+
+
 
   - name: zany_octopus
     script_content: |
@@ -126,8 +139,8 @@ manifests:
     script_content: |
   - name: spunky_sparrow
     script_content: |
-  - name: sassy_seahorse
-    script_content: |
+
+
   - name: joyful_jackrabbit
     script_content: |
   - name: gleeful_gorilla
