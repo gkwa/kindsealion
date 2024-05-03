@@ -25,28 +25,28 @@ tasks:
       - 001_sprightly_squirrel
     status:
       - incus image info 002_mirthful_meerkat &>/dev/null
-  003_bubbly_baboon:
+  003_goofy_giraffe:
     cmds:
-      - packer init 003_bubbly_baboon.pkr.hcl
-      - packer build 003_bubbly_baboon.pkr.hcl
+      - packer init 003_goofy_giraffe.pkr.hcl
+      - packer build 003_goofy_giraffe.pkr.hcl
     deps:
       - 002_mirthful_meerkat
     status:
-      - incus image info 003_bubbly_baboon &>/dev/null
-  004_goofy_giraffe:
+      - incus image info 003_goofy_giraffe &>/dev/null
+  004_bubbly_baboon:
     cmds:
-      - packer init 004_goofy_giraffe.pkr.hcl
-      - packer build 004_goofy_giraffe.pkr.hcl
+      - packer init 004_bubbly_baboon.pkr.hcl
+      - packer build 004_bubbly_baboon.pkr.hcl
     deps:
-      - 003_bubbly_baboon
+      - 003_goofy_giraffe
     status:
-      - incus image info 004_goofy_giraffe &>/dev/null
+      - incus image info 004_bubbly_baboon &>/dev/null
   005_silly_goose:
     cmds:
       - packer init 005_silly_goose.pkr.hcl
       - packer build 005_silly_goose.pkr.hcl
     deps:
-      - 004_goofy_giraffe
+      - 004_bubbly_baboon
     status:
       - incus image info 005_silly_goose &>/dev/null
   006_quirky_penguin:

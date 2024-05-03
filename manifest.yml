@@ -50,12 +50,12 @@ manifests:
   - name: mirthful_meerkat
     script_content: |
       echo mirthful_meerkat
-  - name: bubbly_baboon
-    script_content: |
-      apt-get --assume-yes install mlocate
   - name: goofy_giraffe
     script_content: |
       apt-get --assume-yes install curl
+  - name: bubbly_baboon
+    script_content: |
+      apt-get --assume-yes install mlocate
   - name: silly_goose
     script_content: |
       sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
