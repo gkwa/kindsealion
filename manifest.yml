@@ -84,13 +84,6 @@ manifests:
   - name: cheeky_chimpanzee
     script_content: |
       sudo --login --user linuxbrew brew install golang
-  - name: funky_llama
-    script_content: |
-      sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
-      sudo --login --user linuxbrew brew install ansible
-  - name: frisky_flamingo
-    script_content: |
-      sudo --login --user linuxbrew brew install python
   - name: whimsical_walrus
     script_content: |
       task --dir=/opt/ringgem install-nix-on-linux
@@ -110,6 +103,10 @@ manifests:
   - name: lively_lemur
     script_content: |
   - name: spunky_sparrow
+    script_content: |
+  - name: funky_llama
+    script_content: |
+  - name: frisky_flamingo
     script_content: |
   - name: joyful_jackrabbit
     script_content: |
