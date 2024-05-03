@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+set -e
+set -u
+set -x
+
+
+
+
+
+sudo --login --user linuxbrew brew install python

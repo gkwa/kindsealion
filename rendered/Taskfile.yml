@@ -121,19 +121,27 @@ tasks:
       - 013_cheeky_chimpanzee
     status:
       - incus image info 014_funky_llama &>/dev/null
-  015_whimsical_walrus:
+  015_frisky_flamingo:
     cmds:
-      - packer init 015_whimsical_walrus.pkr.hcl
-      - packer build 015_whimsical_walrus.pkr.hcl
+      - packer init 015_frisky_flamingo.pkr.hcl
+      - packer build 015_frisky_flamingo.pkr.hcl
     deps:
       - 014_funky_llama
     status:
-      - incus image info 015_whimsical_walrus &>/dev/null
-  016_playful_platypus:
+      - incus image info 015_frisky_flamingo &>/dev/null
+  016_whimsical_walrus:
     cmds:
-      - packer init 016_playful_platypus.pkr.hcl
-      - packer build 016_playful_platypus.pkr.hcl
+      - packer init 016_whimsical_walrus.pkr.hcl
+      - packer build 016_whimsical_walrus.pkr.hcl
     deps:
-      - 015_whimsical_walrus
+      - 015_frisky_flamingo
     status:
-      - incus image info 016_playful_platypus &>/dev/null
+      - incus image info 016_whimsical_walrus &>/dev/null
+  017_playful_platypus:
+    cmds:
+      - packer init 017_playful_platypus.pkr.hcl
+      - packer build 017_playful_platypus.pkr.hcl
+    deps:
+      - 016_whimsical_walrus
+    status:
+      - incus image info 017_playful_platypus &>/dev/null

@@ -87,6 +87,9 @@ manifests:
   - name: funky_llama
     script_content: |
       sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
+  - name: frisky_flamingo
+    script_content: |
+      sudo --login --user linuxbrew brew install python
   - name: whimsical_walrus
     script_content: |
       task --dir=/opt/ringgem install-nix-on-linux

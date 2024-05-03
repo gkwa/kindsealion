@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "015_whimsical_walrus"
- output_image = "016_playful_platypus"
+ image        = "014_funky_llama"
+ output_image = "015_frisky_flamingo"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "016_playful_platypus-cloud-init.yml"
+    source      = "015_frisky_flamingo-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "016_playful_platypus.sh",
+      "015_frisky_flamingo.sh",
     ]
   }
 }
