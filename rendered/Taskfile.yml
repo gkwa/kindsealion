@@ -97,35 +97,43 @@ tasks:
       - 010_kooky_kangaroo
     status:
       - incus image info 011_merry_manatee &>/dev/null
-  012_peppy_pelican:
+  012_sassy_seahorse:
     cmds:
-      - packer init 012_peppy_pelican.pkr.hcl
-      - packer build 012_peppy_pelican.pkr.hcl
+      - packer init 012_sassy_seahorse.pkr.hcl
+      - packer build 012_sassy_seahorse.pkr.hcl
     deps:
       - 011_merry_manatee
     status:
-      - incus image info 012_peppy_pelican &>/dev/null
-  013_zany_octopus:
+      - incus image info 012_sassy_seahorse &>/dev/null
+  013_peppy_pelican:
     cmds:
-      - packer init 013_zany_octopus.pkr.hcl
-      - packer build 013_zany_octopus.pkr.hcl
+      - packer init 013_peppy_pelican.pkr.hcl
+      - packer build 013_peppy_pelican.pkr.hcl
     deps:
-      - 012_peppy_pelican
+      - 012_sassy_seahorse
     status:
-      - incus image info 013_zany_octopus &>/dev/null
-  014_whimsical_walrus:
+      - incus image info 013_peppy_pelican &>/dev/null
+  014_zany_octopus:
     cmds:
-      - packer init 014_whimsical_walrus.pkr.hcl
-      - packer build 014_whimsical_walrus.pkr.hcl
+      - packer init 014_zany_octopus.pkr.hcl
+      - packer build 014_zany_octopus.pkr.hcl
     deps:
-      - 013_zany_octopus
+      - 013_peppy_pelican
     status:
-      - incus image info 014_whimsical_walrus &>/dev/null
-  015_playful_platypus:
+      - incus image info 014_zany_octopus &>/dev/null
+  015_whimsical_walrus:
     cmds:
-      - packer init 015_playful_platypus.pkr.hcl
-      - packer build 015_playful_platypus.pkr.hcl
+      - packer init 015_whimsical_walrus.pkr.hcl
+      - packer build 015_whimsical_walrus.pkr.hcl
     deps:
-      - 014_whimsical_walrus
+      - 014_zany_octopus
     status:
-      - incus image info 015_playful_platypus &>/dev/null
+      - incus image info 015_whimsical_walrus &>/dev/null
+  016_playful_platypus:
+    cmds:
+      - packer init 016_playful_platypus.pkr.hcl
+      - packer build 016_playful_platypus.pkr.hcl
+    deps:
+      - 015_whimsical_walrus
+    status:
+      - incus image info 016_playful_platypus &>/dev/null
