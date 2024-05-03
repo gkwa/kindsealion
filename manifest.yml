@@ -78,43 +78,14 @@ manifests:
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
-
   - name: sassy_seahorse
     script_content: |
       sudo --login --user linuxbrew brew install rye
-
-  - name: peppy_pelican
+  - name: funky_llama
     script_content: |
-      set -e
-      set -x
-      set -u
-
-      d=$(mktemp -d /tmp/golang-XXX)
-      cat >$d/Brewfile <<EOF
-      brew "golang"
-      brew "ansible"
-      EOF
-      chmod -R a+rwx $d
-      sudo --login --user linuxbrew bash -c "cd $d && brew bundle"
-      export LC_ALL="en_US.UTF-8"
-      export LC_CTYPE="en_US.UTF-8"
-      sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
       sudo --login --user linuxbrew brew install taylormonacelli/homebrew-tools/itmetrics
-
-      rm -rf $d
-
-
-
-
-
-
-
-
-
-  - name: zany_octopus
-    script_content: |
-      sudo apt-get -y install qemu-system-x86
-      sudo --user linuxbrew --login brew install podman
+      sudo --login --user linuxbrew brew install golang
+      task --dir=/opt/ringgem install-txtar-on-linux
   - name: whimsical_walrus
     script_content: |
       task --dir=/opt/ringgem install-nix-on-linux
@@ -125,6 +96,8 @@ manifests:
     script_content: |
   - name: frisky_flamingo
     script_content: |
+  - name: peppy_pelican
+    script_content: |
   - name: cheeky_chimpanzee
     script_content: |
   - name: zippy_zebra
@@ -133,14 +106,10 @@ manifests:
     script_content: |
   - name: chirpy_chipmunk
     script_content: |
-  - name: funky_llama
-    script_content: |
   - name: lively_lemur
     script_content: |
   - name: spunky_sparrow
     script_content: |
-
-
   - name: joyful_jackrabbit
     script_content: |
   - name: gleeful_gorilla
