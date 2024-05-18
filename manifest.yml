@@ -95,6 +95,8 @@ manifests:
       task --dir=/opt/ringgem install-devbox-on-linux
   - name: jolly_jellyfish
     script_content: |
+      task --dir=/opt/ringgem install-elasticsearch-on-ubuntu
+      task --dir=/opt/ringgem install-kibana-on-ubuntu
   - name: frisky_flamingo
     script_content: |
   - name: zippy_zebra
