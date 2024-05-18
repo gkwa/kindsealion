@@ -75,6 +75,10 @@ manifests:
   - name: merry_manatee
     script_content: |
       task --dir=/opt/ringgem install-homebrew-on-linux
+  - name: jolly_jellyfish
+    script_content: |
+      task --dir=/opt/ringgem install-elasticsearch-on-ubuntu
+      task --dir=/opt/ringgem install-kibana-on-ubuntu
   - name: sassy_seahorse
     script_content: |
       sudo --login --user linuxbrew brew install rye
@@ -93,10 +97,6 @@ manifests:
   - name: playful_platypus
     script_content: |
       task --dir=/opt/ringgem install-devbox-on-linux
-  - name: jolly_jellyfish
-    script_content: |
-      task --dir=/opt/ringgem install-elasticsearch-on-ubuntu
-      task --dir=/opt/ringgem install-kibana-on-ubuntu
   - name: frisky_flamingo
     script_content: |
   - name: zippy_zebra

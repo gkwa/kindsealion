@@ -12,8 +12,8 @@ packer {
 }
 
 source "incus" "jammy" {
- image        = "012_bouncy_butterfly"
- output_image = "013_kooky_kangaroo"
+ image        = "012_sassy_seahorse"
+ output_image = "013_bouncy_butterfly"
  container_name = "kindsealion"
  reuse        = true
  skip_publish = false
@@ -34,7 +34,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "013_kooky_kangaroo-cloud-init.yml"
+    source      = "013_bouncy_butterfly-cloud-init.yml"
     destination = "/etc/cloud/cloud.cfg.d/custom-cloud-init.cfg"
     max_retries = 10
   }
@@ -47,7 +47,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "013_kooky_kangaroo.sh",
+      "013_bouncy_butterfly.sh",
     ]
   }
 }
