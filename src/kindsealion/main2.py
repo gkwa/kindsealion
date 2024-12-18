@@ -1,6 +1,9 @@
 import dataclasses
 import logging
 import pathlib
+import typing
+import urllib.error
+import urllib.parse
 import urllib.request
 
 import jinja2
@@ -47,19 +50,32 @@ def build_dependency_tree(manifests):
     return G
 
 
-def load_manifest_data(manifest_url):
-    yaml_parser = ruamel.yaml.YAML()
+def load_manifest_data(
+    manifest_path: typing.Union[str, pathlib.Path],
+) -> typing.Dict[typing.Any, typing.Any]:
+    if not manifest_path:
+        raise ValueError("Manifest path cannot be empty")
+
+    yaml_parser = ruamel.yaml.YAML(typ="safe")
+
+    parsed_url = urllib.parse.urlparse(str(manifest_path))
+    is_url = parsed_url.scheme in ("http", "https")
+
     try:
-        with open("manifest.yml", "r") as file:
-            data = yaml_parser.load(file)
-    except FileNotFoundError:
-        if manifest_url.startswith("http"):
-            with urllib.request.urlopen(manifest_url) as response:
-                data = yaml_parser.load(response)
+        if is_url:
+            with urllib.request.urlopen(manifest_path) as response:
+                return yaml_parser.load(response)
         else:
-            with open(manifest_url, "r") as file:
-                data = yaml_parser.load(file)
-    return data
+            path = pathlib.Path(manifest_path)
+            with path.open("r", encoding="utf-8") as file:
+                return yaml_parser.load(file)
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Manifest file not found: {manifest_path}")
+    except urllib.error.URLError as e:
+        raise urllib.error.URLError(f"Failed to fetch manifest from URL: {e}")
+    except ruamel.yaml.YAMLError as e:
+        raise ruamel.yaml.YAMLError(f"Failed to parse YAML content: {e}")
 
 
 def create_manifests(data, starting_image):
