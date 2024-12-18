@@ -1,6 +1,10 @@
 import argparse
 import pathlib
 
+DEFAULT_MANIFEST_URL = (
+    "https://raw.githubusercontent.com/taylormonacelli/kindsealion/master/manifest.yml"
+)
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -26,8 +30,8 @@ def parse_args():
         "-m",
         "--manifest-url",
         type=str,
-        help="URL or file path of the manifest.yml",
-        default="https://raw.githubusercontent.com/taylormonacelli/kindsealion/master/manifest.yml",
+        help=f"URL or file path of the manifest.yml (default: {DEFAULT_MANIFEST_URL})",
+        default=DEFAULT_MANIFEST_URL,
     )
     parser.add_argument(
         "-v",
