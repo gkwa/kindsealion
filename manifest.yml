@@ -74,7 +74,7 @@ manifests:
       task --dir=/opt/ringgem install-go-task-bash-completion-on-linux
   - name: merry_manatee
     script_content: |
-      task --dir=/opt/ringgem install-homebrew-on-linux
+      task --dir=/opt/ringgem configure-homebrew-on-linux
   - name: sassy_seahorse
     script_content: |
       sudo --login --user linuxbrew brew install rye
