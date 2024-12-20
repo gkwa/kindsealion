@@ -56,7 +56,10 @@ def load_manifest_data(
     if not manifest_path:
         raise ValueError("Manifest path cannot be empty")
 
-    yaml_parser = ruamel.yaml.YAML(typ="safe")
+    yaml_parser = ruamel.yaml.YAML()
+    yaml_parser.preserve_quotes = True
+    yaml_parser.width = 4096
+    yaml_parser.indent(mapping=2, sequence=4, offset=2)
 
     parsed_url = urllib.parse.urlparse(str(manifest_path))
     is_url = parsed_url.scheme in ("http", "https")
@@ -184,6 +187,17 @@ def write_dns(outdir):
         ringgem.write(r)
 
 
+def write_manifest(outdir, data):
+    manifest_path = outdir.parent / "manifest.yml"
+    if not manifest_path.exists():
+        yaml = ruamel.yaml.YAML()
+        yaml.preserve_quotes = True
+        yaml.width = 4096
+        yaml.indent(mapping=2, sequence=4, offset=2)
+        with manifest_path.open("w") as f:
+            yaml.dump(data, f)
+
+
 def configure_logging(verbose):
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
@@ -214,6 +228,7 @@ def main():
     write_taskfile(outdir, manifests, dependency_tree, manifests_by_name)
     write_ringgem_update(outdir)
     write_dns(outdir)
+    write_manifest(outdir, data)
 
 
 if __name__ == "__main__":
