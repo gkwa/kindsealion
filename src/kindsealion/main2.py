@@ -64,6 +64,8 @@ def load_manifest_data(
     parsed_url = urllib.parse.urlparse(str(manifest_path))
     is_url = parsed_url.scheme in ("http", "https")
 
+    logging.info(f"Loading manifest from: {manifest_path}")
+
     try:
         if is_url:
             with urllib.request.urlopen(manifest_path) as response:
